@@ -1,0 +1,62 @@
+####
+#
+#	tinyos/basic
+#
+$super_script = <<SSCRIPT
+export DEBIAN_FRONTEND=noninteractive
+echo "UPDATING linux"
+apt-get update
+
+echo "*** UPGRADING distribution"
+apt-get dist-upgrade -qy \
+		-o Dpkg::Options::="--force-confdef" \
+		-o Dpkg::Options::="--force-confold" 
+
+echo "*** INSTALLING build-essential git stow automake autoconf libtool libc6-dev git-core git-daemon-run git-doc git-email git-gui gitk gitmagic openssh-client openssh-server g++ python-dev vim aptitude openjdk-7-jdk python3 python3-serial python python-serial libusb-dev libreadline-dev linux-headers-generic"
+apt-get install -qy --force-yes \
+				build-essential git stow automake autoconf libtool libc6-dev \
+				git-core git-daemon-run git-doc git-email git-gui gitk gitmagic \
+				openssh-client openssh-server g++ python-dev vim aptitude \
+				openjdk-7-jdk python3 python3-serial python python-serial \
+				libusb-dev libreadline-dev linux-headers-generic
+
+echo "*** INSTALLING libusb-dev libreadline-dev linux-image-extra-virtual linux-firmware emacs emacs24-el"
+apt-get install -qy --force-yes \
+				libusb-dev libusb-1.0.0 libusb-1.0.0-dev libreadline-dev \
+				linux-image-extra-virtual linux-firmware \
+				emacs emacs24-el
+
+echo "*** ADDING user to groups plugdev and dialout"
+gpasswd -a `whoami` plugdev
+gpasswd -a `whoami` dialout
+
+echo "*** PURGING modemmanager"
+apt-get purge -y modemmanager
+SSCRIPT
+
+$script = <<SCRIPT
+echo "*** INSTALLING libmsp"
+(cd /; sudo tar xvf ~/home/libmsp.tar)
+SCRIPT
+
+#$host_name = "tinyos-basic"
+
+Vagrant.configure(2) do |config|
+  config.vm.hostname = $host_name
+#  config.vm.box = 'ubuntu/trusty64'
+  config.vm.box = 'box-cutter/ubuntu1404-desktop'
+
+	config.vm.provider 'virtualbox' do |vb, override|
+#		vb.name = $host_name
+		vb.gui = true
+		override.vm.synced_folder "~/", "/home/vagrant/home"
+        vb.customize ["modifyvm", :id, "--memory", 1024]
+        vb.customize ["modifyvm", :id, "--vram", 64]
+        vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+  end
+
+  config.vm.provision 'shell', inline: $super_script
+  config.vm.provision "shell", privileged: false, inline: $script
+  
+  config.vm.provision "shell", path: "../common/compact.sh"
+end
