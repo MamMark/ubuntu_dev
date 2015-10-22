@@ -1,9 +1,14 @@
 ####
 #
-#	tinyos/basic
+#	ubuntu_dev/basic
+#
+$my_name = "ubuntu-dev-basic"
+
+# super_script
 #
 $super_script = <<SSCRIPT
 export DEBIAN_FRONTEND=noninteractive
+
 echo "UPDATING linux"
 apt-get update
 
@@ -26,42 +31,24 @@ apt-get install -qy --force-yes \
 				linux-image-extra-virtual linux-firmware \
 				emacs emacs24-el
 
-echo "*** ADDING user to groups plugdev and dialout"
-gpasswd -a `whoami` plugdev
-gpasswd -a `whoami` dialout
-
 echo "*** PURGING modemmanager"
 apt-get purge -y modemmanager
 SSCRIPT
 
-$script = <<SCRIPT
-echo "*** INSTALLING libmsp"
-(cd /; sudo tar xvf ~/home/libmsp.tar)
-SCRIPT
-
-$host_name = "tinyos-basic"
 
 Vagrant.configure(2) do |config|
-  config.vm.hostname = $host_name
-  #config.vm.box = 'ubuntu/trusty32'
-  config.vm.box = 'trusty'
+  config.vm.hostname = $my_name
+  config.vm.box = 'trusty32'
   config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20151021/trusty-server-cloudimg-i386-vagrant-disk1.box'
-#  config.vm.box = 'box-cutter/ubuntu1404-desktop'
   config.vm.box_download_checksum = '4c62640a75a57be45b9afe20f25f6e5ada0f98cf3765cd4b5e7501d0adc7d0b2'
   config.vm.box_download_checksum_type = 'sha256'
-# *trusty-server-cloudimg-i386-vagrant-disk1.box
 
 	config.vm.provider 'virtualbox' do |vb, override|
-#		vb.name = $host_name
-		vb.gui = true
-		override.vm.synced_folder "~/", "/home/vagrant/home"
+		vb.name = $my_name
+		override.vm.synced_folder "~/", "/home/vagrant/home" # optional, useful for rapid development
         vb.customize ["modifyvm", :id, "--memory", 1024]
-        vb.customize ["modifyvm", :id, "--vram", 64]
-        vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
   end
 
-  config.vm.provision 'shell', inline: $super_script
-  config.vm.provision "shell", privileged: false, inline: $script
-  
+  config.vm.provision 'shell', inline: $super_script  
   config.vm.provision "shell", path: "../common/compact.sh"
 end

@@ -30,4 +30,5 @@ images/*
 *.app
 
 # other
+*.box
 .vagrant/

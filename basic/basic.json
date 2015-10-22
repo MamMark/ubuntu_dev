@@ -1,0 +1,13 @@
+{
+    "name": “ubuntu_dev-basic",
+    "description": "This box contains Ubuntu 14.04 32-bit Vagrant server with development basics",
+    "versions": [{
+        "version": "0.1.0",
+        "providers": [{
+                "name": "virtualbox",
+                "url": "https://dl.dropboxusercontent.com/content_link/POlW8fBjjIzTLfbI7PpqiA4XBkNLfUNsLjzWhqOO6Xq54j7Q4EgAAoDtkOiP3CZt/file"
+                "checksum_type": "sha256",
+                "checksum": "b8adee1e14c5f33c7e5825c5a722c98d4a801683ddc3688d330607e381378273"
+        }]
+    }]
+}

@@ -14,6 +14,7 @@ images/*
 *.so
 *.dylib
 *.dll
+*.swp
 
 # Fortran module files
 *.mod
@@ -30,4 +31,5 @@ images/*
 *.app
 
 # other
+.pydevproject
 .vagrant/

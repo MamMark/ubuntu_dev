@@ -2,16 +2,33 @@
 # vi: set ft=ruby :
 
 #
-#	msp430-dev-sv
+#	ubuntu_dev/msp430
 #
+$my_name = "ubuntu-dev-msp430"
+
+# script
+#
+$script = <<SCRIPT
+echo "*** ADDING groups {plugdev, dialout} to users {ubuntu, vagrant}"
+gpasswd -a `whoami` plugdev
+gpasswd -a `whoami` dialout
+gpasswd -a vagrant plugdev
+gpasswd -a vagrant dialout
+SCRIPT
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "tinyos/basic"
-  config.vm.host_name = "msp430-dev-sv"
+  config.vm.box = "ubuntu_dev/basic"
+#  config.vm.box_url = "https://www.dropbox.com/s/q9n688l2j57q1uf/ubbuntu_dev_msp430_2015-10-22.box"
+#  config.vm.box_download_checksum = 'b8adee1e14c5f33c7e5825c5a722c98d4a801683ddc3688d330607e381378273'
+#  config.vm.box_download_checksum_type = 'sha256'
+  
+  
+  config.vm.hostname = $my_name
   config.vm.provision :shell, path: "../common/msp430_tools_install.sh"
+  config.vm.provision :shell, inline: $script
 
   # Enable USB access
   usb_devs = [
@@ -30,6 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   ]
   config.vm.provider "virtualbox" do |vb, override|
+	vb.name = $my_name
     override.vm.synced_folder "~/", "/home/vagrant/home"
     vb.customize ["modifyvm", :id, "--memory", 1024]
     vb.customize ['modifyvm', :id, '--usb', 'on']

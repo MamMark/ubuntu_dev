@@ -1,0 +1,13 @@
+{
+    "name": “ubuntu_dev-msp430",
+    "description": "This box is the Ubuntu_dev/basic box with TI MSP toolchain installed",
+    "versions": [{
+        "version": "0.1.0",
+        "providers": [{
+                "name": "virtualbox",
+                "url": "https://www.dropbox.com/s/q9n688l2j57q1uf/ubbuntu_dev_msp430_2015-10-22.box"
+                "checksum_type": "sha1",
+                "checksum": "d3597dccfdc6953d0a6eff4a9e1903f44f72ab94"
+        }]
+    }]
+}
