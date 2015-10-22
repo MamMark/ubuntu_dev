@@ -2,51 +2,29 @@
 #
 #	tinyos/mammap
 #
-$script = <<SCRIPT
-export DEBIAN_FRONTEND=noninteractive
-
-wget -O - http://tinyprod.net/repos/debian/tinyprod.key | sudo apt-key add -
-#gpg --keyserver keyserver.ubuntu.com --recv-keys A9B913B9
-#gpg -a --export A9B913B9 | sudo apt-key add -
-
-echo "deb http://tinyprod.net/repos/debian wheezy main" >> /etc/apt/sources.list.d/tinyprod-debian.list
-echo "deb http://tinyprod.net/repos/debian msp430-46 main" >> /etc/apt/sources.list.d/tinyprod-debian.list
-
-DEBIAN_FRONTEND=noninteractive apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install msp430-46 nesc tinyos-tools-devel -qy --force-yes
-
-git clone git://git.code.sf.net/p/mspdebug/code mspdebug
-apt-get install -y libusb-dev libreadline-dev
-cd mspdebug
-make
-sudo make install
-
-sudo gpasswd -a `whoami` plugdev
-sudo gpasswd -a `whoami` dialout
-SCRIPT
-
-$host_name = "tinyos-mammap"
+$name = "tinyos-mammap"
 
 Vagrant.configure(2) do |config|
-	config.vm.hostname = $host_name
+	config.vm.hostname = $name
  	config.vm.box = 'tinyos/basic'
 	config.ssh.forward_agent = true
+	config.vm.provision :shell, path: "../common/msp430_tools_install.sh"
 
 	config.vm.provider 'virtualbox' do |vb, override|
-		vb.name = $host_name
-		vb.gui = true
+		vb.name = $name
 		override.vm.synced_folder "~/", "/home/vagrant/home"
         vb.customize ["modifyvm", :id, "--memory", 1024]
-        vb.customize ["modifyvm", :id, "--vram", 64]
-        vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
-		# usb device
+		# add graphics display (for workstation)
+		#vb.gui = true
+        #vb.customize ["modifyvm", :id, "--vram", 64]
+        #vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+		# add filter for TI JTAG usb device
 		vb.customize ["modifyvm", :id, "--usb", "on"]
 		vb.customize ["modifyvm", :id, "--usbehci", "on"]
 		vb.customize ["usbfilter", "add", "0", 
 						"--target", :id, 
-						"--name", "msp_jtag_debugger",
+						"--name", "msp430_jtag_debugger",
 						"--manufacturer", "Texas Instruments",
 						"--product", "MSP-FET430UIF JTAG Tool"]
-  end
-#  config.vm.provision 'shell', privileged: false, inline: $script
+	end
 end

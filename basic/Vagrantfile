@@ -39,12 +39,17 @@ echo "*** INSTALLING libmsp"
 (cd /; sudo tar xvf ~/home/libmsp.tar)
 SCRIPT
 
-#$host_name = "tinyos-basic"
+$host_name = "tinyos-basic"
 
 Vagrant.configure(2) do |config|
   config.vm.hostname = $host_name
-#  config.vm.box = 'ubuntu/trusty64'
-  config.vm.box = 'box-cutter/ubuntu1404-desktop'
+  #config.vm.box = 'ubuntu/trusty32'
+  config.vm.box = 'trusty'
+  config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20151021/trusty-server-cloudimg-i386-vagrant-disk1.box'
+#  config.vm.box = 'box-cutter/ubuntu1404-desktop'
+  config.vm.box_download_checksum = '4c62640a75a57be45b9afe20f25f6e5ada0f98cf3765cd4b5e7501d0adc7d0b2'
+  config.vm.box_download_checksum_type = 'sha256'
+# *trusty-server-cloudimg-i386-vagrant-disk1.box
 
 	config.vm.provider 'virtualbox' do |vb, override|
 #		vb.name = $host_name
