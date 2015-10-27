@@ -1,34 +1,34 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
 #
 #	ubuntu_dev/msp430
 #
 $my_name = "ubuntu-dev-msp430"
 
-# script
+# scripts
 #
-$script = <<SCRIPT
+$post_install_script = <<SCRIPT
 echo "*** ADDING groups {plugdev, dialout} to users {ubuntu, vagrant}"
 gpasswd -a `whoami` plugdev
 gpasswd -a `whoami` dialout
 gpasswd -a vagrant plugdev
 gpasswd -a vagrant dialout
+echo "*** PURGING modemmanager"
+#apt-get purge -y modemmanager
+echo "msp430 development environment ready for packaging"
 SCRIPT
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu_dev/basic"
-#  config.vm.box_url = "https://www.dropbox.com/s/q9n688l2j57q1uf/ubbuntu_dev_msp430_2015-10-22.box"
-#  config.vm.box_download_checksum = 'b8adee1e14c5f33c7e5825c5a722c98d4a801683ddc3688d330607e381378273'
-#  config.vm.box_download_checksum_type = 'sha256'
-  
-  
   config.vm.hostname = $my_name
+
+  config.vm.box = "ubuntu_dev/basic"
+
   config.vm.provision :shell, path: "../common/msp430_tools_install.sh"
-  config.vm.provision :shell, inline: $script
+  config.vm.provision :shell, inline: $post_install_script
+  config.vm.provision "shell", path: "../common/compact.sh"
 
   # Enable USB access
   usb_devs = [
@@ -44,13 +44,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ['0x0451', '0xf430', 'MSP430UIF (V2)'],
     # Misc devices
     ['0x15ba', '0x0031', 'Olimex JTAG tiny'],
-
   ]
+  
   config.vm.provider "virtualbox" do |vb, override|
 	vb.name = $my_name
     override.vm.synced_folder "~/", "/home/vagrant/home"
+    
     vb.customize ["modifyvm", :id, "--memory", 1024]
     vb.customize ['modifyvm', :id, '--usb', 'on']
+    
     usb_devs.each do |dev|
       vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
     end

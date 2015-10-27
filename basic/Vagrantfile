@@ -6,7 +6,7 @@ $my_name = "ubuntu-dev-basic"
 
 # super_script
 #
-$super_script = <<SSCRIPT
+$linux_script = <<SSCRIPT
 export DEBIAN_FRONTEND=noninteractive
 
 echo "UPDATING linux"
@@ -17,38 +17,45 @@ apt-get dist-upgrade -qy \
 		-o Dpkg::Options::="--force-confdef" \
 		-o Dpkg::Options::="--force-confold" 
 
-echo "*** INSTALLING build-essential git stow automake autoconf libtool libc6-dev git-core git-daemon-run git-doc git-email git-gui gitk gitmagic openssh-client openssh-server g++ python-dev vim aptitude openjdk-7-jdk python3 python3-serial python python-serial libusb-dev libreadline-dev linux-headers-generic"
+echo "*** INSTALLING build-essential git  "
+echo "*** INSTALLING python python3 python-dev python-serial python3-serial "
+echo "*** INSTALLING vim aptitude "
+echo "*** INSTALLING openjdk-7-jdk  "
+echo "*** INSTALLING libusb-dev libreadline-dev "
+echo "*** INSTALLING linux-headers-generic linux-image-extra-virtual linux-firmware "
+echo "*** INSTALLING emacs emacs24-el"
+				
 apt-get install -qy --force-yes \
-				build-essential git stow automake autoconf libtool libc6-dev \
-				git-core git-daemon-run git-doc git-email git-gui gitk gitmagic \
-				openssh-client openssh-server g++ python-dev vim aptitude \
-				openjdk-7-jdk python3 python3-serial python python-serial \
-				libusb-dev libreadline-dev linux-headers-generic
+					build-essential git  \
+					python python3 python-dev python-serial python3-serial \
+					vim aptitude \
+					openjdk-7-jdk  \
+					libusb-dev libreadline-dev \
+					linux-headers-generic linux-image-extra-virtual linux-firmware \
+					emacs emacs24-el
 
-echo "*** INSTALLING libusb-dev libreadline-dev linux-image-extra-virtual linux-firmware emacs emacs24-el"
-apt-get install -qy --force-yes \
-				libusb-dev libusb-1.0.0 libusb-1.0.0-dev libreadline-dev \
-				linux-image-extra-virtual linux-firmware \
-				emacs emacs24-el
-
-echo "*** PURGING modemmanager"
-apt-get purge -y modemmanager
+#echo "*** ? stow automake autoconf libtool libc6-dev"
+#echo "*** ? git-core git-daemon-run git-doc git-email git-gui gitk gitmagic"
+#echo "*** ? openssh-client openssh-server vim aptitude"
 SSCRIPT
 
-
 Vagrant.configure(2) do |config|
-  config.vm.hostname = $my_name
-  config.vm.box = 'trusty32'
-  config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20151021/trusty-server-cloudimg-i386-vagrant-disk1.box'
-  config.vm.box_download_checksum = '4c62640a75a57be45b9afe20f25f6e5ada0f98cf3765cd4b5e7501d0adc7d0b2'
-  config.vm.box_download_checksum_type = 'sha256'
+	config.vm.hostname = $my_name
+	
+	config.vm.box = 'trusty32'
+	config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20151021/trusty-server-cloudimg-i386-vagrant-disk1.box'
+	config.vm.box_download_checksum = '4c62640a75a57be45b9afe20f25f6e5ada0f98cf3765cd4b5e7501d0adc7d0b2'
+	config.vm.box_download_checksum_type = 'sha256'
 
+	config.ssh.insert_key = false
+
+	config.vm.provision 'shell', inline: $linux_script  
+	config.vm.provision "shell", path: "../common/compact.sh"
+	 
 	config.vm.provider 'virtualbox' do |vb, override|
 		vb.name = $my_name
 		override.vm.synced_folder "~/", "/home/vagrant/home" # optional, useful for rapid development
         vb.customize ["modifyvm", :id, "--memory", 1024]
-  end
+	end
 
-  config.vm.provision 'shell', inline: $super_script  
-  config.vm.provision "shell", path: "../common/compact.sh"
 end
