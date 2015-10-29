@@ -22,40 +22,44 @@ SCRIPT
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.hostname = $my_name
+	config.vm.hostname = $my_name
 
-  config.vm.box = "ubuntu_dev/basic"
+	config.vm.box = "ubuntu_dev/basic"
+	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.json'
+	config.vm.box_download_checksum = '5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606'
+	config.vm.box_download_checksum_type = 'sha256'
+	config.vm.box_check_update = true
 
-  config.vm.provision :shell, path: "mspgcc_ti_tools_install.sh"
-  config.vm.provision :shell, path: "mspgcc46_tools_install.sh"
-  config.vm.provision :shell, inline: $post_install_script
-  config.vm.provision "shell", path: "../common/compact.sh"
+	config.vm.provision :shell, path: "mspgcc_ti_tools_install.sh"
+	config.vm.provision :shell, path: "mspgcc46_tools_install.sh"
+	config.vm.provision :shell, inline: $post_install_script
+	config.vm.provision "shell", path: "../common/compact.sh"
 
   # Enable USB access
-  usb_devs = [
-    # Required for programming new fraunchpad
-    ['0x2047', '0x0013', 'MSP4305969 Launchpad programmer'],
-    ['0x2047', '0x0203', 'MSP4305969 Launchpad FW updater'],
-    # Other USB ids from TI's udev rules.
-    ['0x2047', '0x0010', 'MSP430UIF (V3)'],
-    ['0x2047', '0x0014', 'MSP430UIF'],
-    ['0x2047', '0x0204', 'MSP430UIF'],
-    # For older fraunchpads and launchpads
-    ['0x0451', '0xf432', 'eZ430'],
-    ['0x0451', '0xf430', 'MSP430UIF (V2)'],
-    # Misc devices
-    ['0x15ba', '0x0031', 'Olimex JTAG tiny'],
-  ]
-  
-  config.vm.provider "virtualbox" do |vb, override|
-	vb.name = $my_name
-    override.vm.synced_folder "~/", "/home/vagrant/home"
-    
-    vb.customize ["modifyvm", :id, "--memory", 1024]
-    vb.customize ['modifyvm', :id, '--usb', 'on']
-    
-    usb_devs.each do |dev|
-      vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
-    end
-  end
+	usb_devs = [
+		# Required for programming new fraunchpad
+		['0x2047', '0x0013', 'MSP4305969 Launchpad programmer'],
+		['0x2047', '0x0203', 'MSP4305969 Launchpad FW updater'],
+		# Other USB ids from TI's udev rules.
+		['0x2047', '0x0010', 'MSP430UIF (V3)'],
+		['0x2047', '0x0014', 'MSP430UIF'],
+		['0x2047', '0x0204', 'MSP430UIF'],
+		# For older fraunchpads and launchpads
+		['0x0451', '0xf432', 'eZ430'],
+		['0x0451', '0xf430', 'MSP430UIF (V2)'],
+		# Misc devices
+		['0x15ba', '0x0031', 'Olimex JTAG tiny'],
+	]
+
+	config.vm.provider "virtualbox" do |vb, override|
+		vb.name = $my_name
+		override.vm.synced_folder "~/", "/home/vagrant/home"
+	
+		vb.customize ["modifyvm", :id, "--memory", 1024]
+		vb.customize ['modifyvm', :id, '--usb', 'on']
+	
+		usb_devs.each do |dev|
+			vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
+		end
+	end
 end
