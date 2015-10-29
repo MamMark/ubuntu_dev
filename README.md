@@ -57,11 +57,13 @@ echo $CHECKSUM >> $OSUMS
 echo $CHECKSUM
 <<fix up the json file, see below>>
 scp -P 23456 {$BASE_NAME.json,$OBOX,$OSUMS} danome@tinyprod.net:/var/www/boxes/
-vagrant box add ubuntu_dev/$IBOX --force --name $IBOX.json  
+vagrant box add ubuntu_dev/$IBOX --force --name $BASE_NAME.json  
 
 ## retrieve a box from tinyprod
+box add http://tinyprod.net/boxes/ubuntu-dev-msp430.json
+or
 wget --quiet http://tinyprod.net/boxes/ubuntu_dev-basic.2015-10-27.box
-
+vagrant box add ubuntu-dev/msp430 ubuntu_dev-basic.2015-10-27.box
 
 ## EDIT the {basic,msp430}.json file with the new version, BOX name and CHECKSUM produced by steps above (example below)
 {
