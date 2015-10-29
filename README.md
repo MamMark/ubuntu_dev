@@ -1,4 +1,4 @@
-# ubuntu_dev - Vagrant development boxes
+# ubuntu_dev/msp430
 files related to building TI-MSP430 software, including Vagrantfiles and other scripts
 
 ## basic
