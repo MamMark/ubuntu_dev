@@ -26,7 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "ubuntu_dev/basic"
 
-  config.vm.provision :shell, path: "../common/msp430_tools_install.sh"
+  config.vm.provision :shell, path: "mspgcc_ti_tools_install.sh"
+  config.vm.provision :shell, path: "mspgcc46_tools_install.sh"
   config.vm.provision :shell, inline: $post_install_script
   config.vm.provision "shell", path: "../common/compact.sh"
 
