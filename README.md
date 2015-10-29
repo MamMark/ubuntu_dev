@@ -1,20 +1,16 @@
 # ubuntu_dev/msp430
-files related to building TI-MSP430 software, including Vagrantfiles and other scripts
 
 ## basic
-Vagrantfile to build Linux 14.04 cloud-server box image with common development libraries
+Files for building Linux 14.04 cloud-server box image with common development libraries
 
 ## msp430
-Vagrantfile to build linux box with TI MSP430 development tools, based on ubuntu_dev/basic
+Files for building TI-MSP430 software, including Vagrantfiles and other scripts
 
 ## common
-Scripts and other supporting files
+Common scripts and other shared files
 
 ## mammap
-Vagrantfile to test mammal tagging application
-
-# ubuntu_dev/basic
-Vagrantfile to build vagrant box based on Linux 14.04 cloud-server box image with common development libraries
+files for test mammal tagging application
 
 
 #######################################################################################################
@@ -41,7 +37,7 @@ export INAME=msp430
 export ILIST='Vagrantfile'
 
 ## General boxing rules using variables for specific box definition
-##  package new box and add it to local repo. Also, save copy of box in dropbox to share.
+###  package new box and add it to local repo. Also, save copy of box in dropbox to share.
 export BASE_NAME=ubuntu_dev-$INAME
 export TARGET=~/Dropbox/mammal-tag/Vagrant_boxes
 export IMAGE_NAME=$BASE_NAME.`date +%Y-%m-%d`
@@ -59,13 +55,13 @@ echo $CHECKSUM
 scp -P 23456 {$BASE_NAME.json,$OBOX,$OSUMS} danome@tinyprod.net:/var/www/boxes/
 vagrant box add ubuntu_dev/$IBOX --force --name $BASE_NAME.json  
 
-## retrieve a box from tinyprod
+### retrieve a box from tinyprod
 box add http://tinyprod.net/boxes/ubuntu-dev-msp430.json
 or
 wget --quiet http://tinyprod.net/boxes/ubuntu_dev-basic.2015-10-27.box
 vagrant box add ubuntu-dev/msp430 ubuntu_dev-basic.2015-10-27.box
 
-## EDIT the {basic,msp430}.json file with the new version, BOX name and CHECKSUM produced by steps above (example below)
+# EDIT the {basic,msp430}.json file with the new version, BOX name and CHECKSUM produced by steps above (example below)
 {
 	"name": "ubuntu_dev/basic",
 	"description": "This box contains Ubuntu 14.04 32-bit Vagrant server with development basics",
