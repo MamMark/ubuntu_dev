@@ -19,7 +19,6 @@ apt-get dist-upgrade -qy \
 
 echo "*** INSTALLING build-essential git  "
 echo "*** INSTALLING python python3 python-dev python-serial python3-serial "
-echo "*** INSTALLING vim aptitude "
 echo "*** INSTALLING openjdk-7-jdk  "
 echo "*** INSTALLING libusb-dev libreadline-dev "
 echo "*** INSTALLING linux-headers-generic linux-image-extra-virtual linux-firmware "
@@ -28,7 +27,6 @@ echo "*** INSTALLING emacs emacs24-el"
 apt-get install -qy --force-yes \
 					build-essential git  \
 					python python3 python-dev python-serial python3-serial \
-					vim aptitude \
 					openjdk-7-jdk  \
 					libusb-dev libreadline-dev \
 					linux-headers-generic linux-image-extra-virtual linux-firmware \
