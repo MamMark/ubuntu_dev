@@ -1,4 +1,4 @@
-# ubuntu_dev/msp430
+# ubuntu_dev
 
 ## basic
 Files for building Linux 14.04 cloud-server box image with common development libraries
