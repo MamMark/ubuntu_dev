@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_02_02_00/exports/msp430-gcc-full-linux-installer-3.2.2.0.run
+#TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_02_02_00/exports/msp430-gcc-full-linux-installer-3.2.2.0.run
+TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_05_00_00/exports/msp430-gcc-full-linux-installer-3.5.0.0.run
 TI_MSPGCC_DIR=/opt/ti-mspgcc
 
 echo "Downloading TI MSPGCC"
@@ -15,7 +16,8 @@ cp $TI_MSPGCC_DIR/{include/*.ld,msp430-elf/lib}
 echo "export PATH=$TI_MSPGCC_DIR/bin:$PATH" >> /etc/profile
 $TI_MSPGCC_DIR/install_scripts/msp430uif_install.sh
 
-apt-get update
-apt-get -y dist-upgrade
-apt-get install -y mspdebug linux-image-extra-virtual
+apt-get -V update
+apt-get -y -V dist-upgrade
+echo "Upgrade complete"
+apt-get install -y -V mspdebug linux-image-extra-virtual
 ln -s $TI_MSPGCC_DIR/bin/libmsp430.so /usr/lib/
