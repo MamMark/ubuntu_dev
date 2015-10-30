@@ -38,8 +38,6 @@ apt-get install -qy --force-yes \
 SSCRIPT
 
 Vagrant.configure(2) do |config|
-	config.vm.hostname = $my_name
-	
 	config.vm.box = 'trusty32'
 	config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20151021/trusty-server-cloudimg-i386-vagrant-disk1.box'
 	config.vm.box_download_checksum = '4c62640a75a57be45b9afe20f25f6e5ada0f98cf3765cd4b5e7501d0adc7d0b2'
@@ -50,10 +48,12 @@ Vagrant.configure(2) do |config|
 	config.vm.provision 'shell', inline: $linux_script  
 	config.vm.provision "shell", path: "../common/compact.sh"
 	 
-	config.vm.provider 'virtualbox' do |vb, override|
-		vb.name = $my_name
-		override.vm.synced_folder "~/", "/home/vagrant/home" # optional, useful for rapid development
-        vb.customize ["modifyvm", :id, "--memory", 1024]
+	config.vm.define $my_name do |config|
+		config.vm.hostname = $my_name
+		config.vm.provider 'virtualbox' do |vb, override|
+			vb.name = $my_name
+			override.vm.synced_folder "~/", "/home/vagrant/home" # optional, useful for rapid development
+	        vb.customize ["modifyvm", :id, "--memory", 1024]
+		end
 	end
-
 end

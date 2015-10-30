@@ -22,8 +22,6 @@ SCRIPT
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.vm.hostname = $my_name
-
 	config.vm.box = "ubuntu_dev/basic"
 	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.json'
 	config.vm.box_download_checksum = '5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606'
@@ -51,15 +49,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		['0x15ba', '0x0031', 'Olimex JTAG tiny'],
 	]
 
-	config.vm.provider "virtualbox" do |vb, override|
-		vb.name = $my_name
-		override.vm.synced_folder "~/", "/home/vagrant/home"
-	
-		vb.customize ["modifyvm", :id, "--memory", 1024]
-		vb.customize ['modifyvm', :id, '--usb', 'on']
-	
-		usb_devs.each do |dev|
-			vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
+	config.vm.define $my_name do |config|
+		config.vm.hostname = $my_name
+		config.vm.provider "virtualbox" do |vb, override|
+			vb.name = $my_name
+			override.vm.synced_folder "~/", "/home/vagrant/home"
+		
+			vb.customize ["modifyvm", :id, "--memory", 1024]
+			vb.customize ['modifyvm', :id, '--usb', 'on']
+			usb_devs.each do |dev|
+				vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
+			end
 		end
 	end
 end
