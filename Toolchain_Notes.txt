@@ -1,0 +1,80 @@
+
+These are notes about various things about the msp430 toolchain.
+
+TI and Redhat have taken over support of the mspgcc varient of the msp430
+toolchain.  It gets released as a complete package (see versioning notes
+below).
+
+As of 10/29/15 we install from msp430-gcc-full-linux-installer-3.5.0.0.run
+
+Versioning notes:
+
+MSP430-GCC  3_05_00_00
+Build date: 09152015
+
+Changes in This Release:
+  Updated GCC compiler (14r1-364)
+  Code to disable watchdog timer has been removed from start-up sequence (See examples)
+  Updated gdb agent (6.0.14.5)
+  Added support for following GDB monitor commands:
+    'monitor reset' - reset the CPU
+    'monitor halt' - halt the CPU
+
+
+From: https://www.mail-archive.com/mspgcc-users@lists.sourceforge.net/msg12169.html
+
+For example: MSP430-GCC  3_05_00_00
+msp430-elf-gcc (GCC) 4.9.1 20140707 (prerelease (msp430-14r1-364)) (GNUPro 14r1) (Based on: GCC 4.8 GDB 7.7 Binutils 2.24 Newlib 2.1)
+
+(gnupro [2])
+
+The versioning of our package works as follows:
+
+1. Digit: GCC Version
+2. Digit: Debug stack version
+3. Digit: Header/linker file version
+4. Digit: Build number
+
+Why did we do this?
+
+We're shipping stand-alone packages & "distributions" that include all of the above.
+With the version scheme you instantly see if we just updated support files OR the
+debug Stack OR the actual compiler. This will hopefully help you to determine where
+you want to update or not.
+
+
+INSTALL_DIR is typically /opt/ti-mspgcc.
+
+
+debugging via gdb and gdb_agent [1]:
+
+$INSTALL_DIR/bin/gdb_agent_console $INSTALL_DIR/msp430.dat
+
+make debug
+<gdb>
+load
+target remote :55000
+
+
+EABI for mspgcc 4.9.1 and TI proprietary compiler [3]:
+  Calling conventions have changed from previous mspgcc toolchain to allow
+  compatibility with the TI proprietary toolchain.
+
+
+References:
+
+[1] Red Hat GCC for MSP430™ Microcontrollers, slau591a
+    http://www.ti.com/lit/ml/slau591a/slau591a.pdf
+
+[2] The GnuPro Toolkit (latest)
+    ftp://ftp.ges.redhat.com/private/releng/gnupro-docs/gnupro-latest.pdf
+
+[3] EABI: http://www.ti.com/lit/an/slaa664/slaa664.pdf
+
+[4] Building: http://www.instructables.com/id/Getting-started-with-TIs-MSP430-gcc-and-the-MSP430/
+
+[5] BSP: http://pabigot.github.io/bsp430/msp430elf.html
+
+[6] From Source: http://www.j2n.nl/blog/anchor-cms/index.php/posts/installation-of-gcc-4-9-1-for-the-msp430
+
+[7] builtins: https://e2e.ti.com/support/microcontrollers/msp430/f/166/t/321497
