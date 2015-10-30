@@ -9,7 +9,7 @@
 				"name": "virtualbox",
 				"description_html": "<p>Dev Environment</p>",
 				"description_markdown": "Dev Environment",
-				"url": "http:\/\/www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.box",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.box",
 				"checksum_type": "sha256",
 				"checksum": "5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606"
         }]
