@@ -3,7 +3,8 @@
 #
 #	ubuntu_dev/msp430
 #
-$my_name = "ubuntu-dev-msp430"
+
+$my_name = "u1404-dev-msp430"
 
 # scripts
 #
@@ -14,8 +15,8 @@ gpasswd -a `whoami` dialout
 gpasswd -a vagrant plugdev
 gpasswd -a vagrant dialout
 echo "*** PURGING modemmanager"
-#apt-get purge -y modemmanager
-echo "msp430 development environment ready for packaging"
+apt-get purge -y modemmanager
+echo "*** msp430 development environment ready for packaging"
 SCRIPT
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
@@ -23,8 +24,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "ubuntu_dev/basic"
-	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.json'
-	config.vm.box_download_checksum = '5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606'
+	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-11-01.json'
+	config.vm.box_download_checksum = 'c811bec722f86c75350a5256d9fb66ebffb7454470af76f2b7ef77a4797924c8'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 
@@ -54,7 +55,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		config.vm.provider "virtualbox" do |vb, override|
 			vb.name = $my_name
 			override.vm.synced_folder "~/", "/home/vagrant/home"
-		
+
 			vb.customize ["modifyvm", :id, "--memory", 1024]
 			vb.customize ['modifyvm', :id, '--usb', 'on']
 			usb_devs.each do |dev|
