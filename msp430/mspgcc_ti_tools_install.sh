@@ -4,6 +4,7 @@
 TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_05_00_00/exports/msp430-gcc-full-linux-installer-3.5.0.0.run
 TI_MSPGCC_DIR=/opt/ti-mspgcc
 
+echo "***"
 echo "*** Downloading TI MSPGCC tools"
 wget -nv -O installer $TI_MSPGCC_URL
 
@@ -17,11 +18,17 @@ cp $TI_MSPGCC_DIR/{include/*.ld,msp430-elf/lib}
 echo "export PATH=$TI_MSPGCC_DIR/bin:$PATH" >> /etc/profile
 $TI_MSPGCC_DIR/install_scripts/msp430uif_install.sh
 
-echo "*** Upgrading System"
-apt-get update
-apt-get -y -V dist-upgrade
-echo "*** Upgrade complete"
-apt-get install -y -V mspdebug linux-image-extra-virtual
 ln -s $TI_MSPGCC_DIR/bin/libmsp430.so /usr/lib/
+/bin/rm -rf installer
 
+# package upgrade happens in other provisioning script which runs
+# after this one.  So don't do this twice.
+# 
+# echo "*** Upgrading System"
+# apt-get update
+# apt-get -y -V dist-upgrade
+# echo "*** Upgrade complete"
+# apt-get install -y -V mspdebug linux-image-extra-virtual
+
+echo "***"
 echo "*** TI tools (msp430) install complete"
