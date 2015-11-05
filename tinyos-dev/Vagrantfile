@@ -35,7 +35,7 @@ if [ ! -e $DEV_ROOT ] ; then
     cd ~
 fi
 
-cd $MSP/prod/apps/Blink
+cd $TINYOS_ROOT_DIR/apps/Blink
 make debugopt telosb
 make debugopt exp5438_gps
 SCRIPT
