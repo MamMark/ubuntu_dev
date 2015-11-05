@@ -43,9 +43,6 @@ SCRIPT
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu_dev/msp430"
   config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-msp430.json'
-  config.vm.box_download_checksum = '807306875e499c5443db534beda6202d77f04292b90b665751203978f3a9436a'
-  config.vm.box_download_checksum_type = 'sha256'
-  config.vm.box_check_update = false
 
   config.vm.define $box_name
   config.vm.hostname = $box_name
