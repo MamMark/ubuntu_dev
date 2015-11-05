@@ -13,11 +13,10 @@ EOF
 
 cat > ~/.bashrc_env <<EOF
 if [ -z \\\$TINYOS_ENV_SET ] ; then
-	export MY_HOME=/home/vagrant
-	export MY_DIR=msp430dev
-	export MSP=\\\$MY_HOME/\\\$MY_DIR
-	export MM_ROOT=\\\$MSP/mm
-	export TINYOS_ROOT_DIR=\\\$MSP/prod
+	export NEW_HOME=/home/vagrant
+	export DEV_ROOT=\\\$NEW_HOME/msp430dev
+	export MM_ROOT=\\\$DEV_ROOT/mm
+	export TINYOS_ROOT_DIR=\\\$DEV_ROOT/prod
 	export TINYOS_ROOT_DIR_ADDITIONAL=\\\$MM_ROOT:\\\$TINYOS_ROOT_DIR_ADDITIONAL
 	export CLASSPATH=.:\\\$TINYOS_ROOT_DIR/support/sdk/java/tinyos.jar
 	export PYTHONPATH=\\\$TINYOS_ROOT_DIR/support/sdk/python:\\\$PYTHONPATH
@@ -28,9 +27,9 @@ EOF
 fi
 
 . ~/.bashrc_env
-if [ ! -e $MSP ] ; then
-    mkdir $MSP
-    cd $MSP
+if [ ! -e $DEV_ROOT ] ; then
+    mkdir $DEV_ROOT
+    cd $DEV_ROOT
     git clone -v git://github.com/tp-freeforall/prod
     git clone -v git://github.com/MamMark/mm.git
     cd ~
