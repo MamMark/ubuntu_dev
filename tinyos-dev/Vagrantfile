@@ -3,21 +3,42 @@
 
 $box_name = "user-vm-32"
 
-$additional_install = <<SCRIPT
-apt-get install keychain
-SCRIPT
+$modify_bashrc = <<SCRIPT
+cd ~
 
-$copy_dots = <<SCRIPT
-SRC_DIR=~/home/
-DST_DIR=~/
+if [ ! -e ~/.bashrc_env ] ; then
+cat >> ~/.bashrc <<EOF
+. ~/.bashrc_env
+EOF
 
-FILES=".bash_login .bash_logout .bashrc .gitconfig .mspdebug .profile"
+cat > ~/.bashrc_env <<EOF
+if [ -z \\\$TINYOS_ENV_SET ] ; then
+	export MY_HOME=/home/vagrant
+	export MY_DIR=msp430dev
+	export MSP=\\\$MY_HOME/\\\$MY_DIR
+	export MM_ROOT=\\\$MSP/mm
+	export TINYOS_ROOT_DIR=\\\$MSP/prod
+	export TINYOS_ROOT_DIR_ADDITIONAL=\\\$MM_ROOT:\\\$TINYOS_ROOT_DIR_ADDITIONAL
+	export CLASSPATH=.:\\\$TINYOS_ROOT_DIR/support/sdk/java/tinyos.jar
+	export PYTHONPATH=\\\$TINYOS_ROOT_DIR/support/sdk/python:\\\$PYTHONPATH
+	export PYTHONPATH=/usr/local/lib/python3.4/dist-packages:\\\$PYTHONPATH
+	export TINYOS_ENV_SET="true"
+fi
+EOF
+fi
 
-echo -e "\n*** dots from $SRC_DIR -> $DST_DIR ***"
-(for i in $FILES; do echo $i; done) | rsync -aiPbuWq --files-from=- $SRC_DIR $DST_DIR
+. ~/.bashrc_env
+if [ ! -e $MSP ] ; then
+    mkdir $MSP
+    cd $MSP
+    git clone -v git://github.com/tp-freeforall/prod
+    git clone -v git://github.com/MamMark/mm.git
+    cd ~
+fi
 
-echo -e "\n*** Ya all come back now!***"
-
+cd $MSP/prod/apps/Blink
+make debugopt telosb
+make debugopt exp5438_gps
 SCRIPT
 
 Vagrant.configure(2) do |config|
@@ -27,46 +48,18 @@ Vagrant.configure(2) do |config|
   config.vm.box_download_checksum_type = 'sha256'
   config.vm.box_check_update = false
 
-  config.vm.synced_folder "~/", "/home/vagrant/home"
-  config.vm.hostname = $box_name
-
   config.vm.define $box_name
+  config.vm.hostname = $box_name
 
   config.ssh.forward_x11 = true
   config.ssh.forward_agent = true
 
-  # Disable automatic box update checking. If you disable this, then
-  # boxes will only be checked for updates when the user runs
-  # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
-
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-
-  # config.vm.network "public_network", bridge: ""
-  # config.vm.network "public_network", bridge: "eth0"
+  config.vm.synced_folder "~/", "/home/vagrant/home"
 
   config.vm.network "public_network", bridge: ""
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  # Example for VirtualBox:
-  #
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb, override|
     vb.name = $box_name
+    override.vm.provision :shell, privileged: false, inline: $modify_bashrc
   end
 end
