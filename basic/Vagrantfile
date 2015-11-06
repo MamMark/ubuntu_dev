@@ -2,7 +2,7 @@
 #
 #	ubuntu_dev/basic
 #
-$my_name = "ubuntu-dev-basic"
+$my_name = "u1404-dev-basic"
 
 # super_script
 #
@@ -14,26 +14,26 @@ apt-get update
 
 echo "*** UPGRADING distribution"
 apt-get dist-upgrade -qy \
-		-o Dpkg::Options::="--force-confdef" \
-		-o Dpkg::Options::="--force-confold" 
+	-o Dpkg::Options::="--force-confdef" \
+	-o Dpkg::Options::="--force-confold" 
 
-echo "*** INSTALLING build-essential git  "
+echo "*** INSTALLING build-essential git gitk"
 echo "*** INSTALLING python python3 python-dev python-serial python3-serial "
-echo "*** INSTALLING openjdk-7-jdk  "
+echo "*** INSTALLING openjdk-7-jre openjdk-7-jdk  "
 echo "*** INSTALLING libusb-dev libreadline-dev "
 echo "*** INSTALLING linux-headers-generic linux-image-extra-virtual linux-firmware "
-echo "*** INSTALLING emacs emacs24-el"
+echo "*** INSTALLING emacs emacs24-el tree"
 				
 apt-get install -qy --force-yes \
-					build-essential git  \
-					python python3 python-dev python-serial python3-serial \
-					openjdk-7-jdk  \
-					libusb-dev libreadline-dev \
-					linux-headers-generic linux-image-extra-virtual linux-firmware \
-					emacs emacs24-el
+	build-essential git gitk\
+	python python3 python-dev python-serial python3-serial \
+	openjdk-7-jre openjdk-7-jdk \
+	libusb-dev libreadline-dev \
+	linux-headers-generic linux-image-extra-virtual linux-firmware \
+	emacs emacs24-el tree
 
 #echo "*** ? stow automake autoconf libtool libc6-dev"
-#echo "*** ? git-core git-daemon-run git-doc git-email git-gui gitk gitmagic"
+#echo "*** ? git-core git-daemon-run git-doc git-email git-gui gitmagic"
 #echo "*** ? openssh-client openssh-server vim aptitude"
 SSCRIPT
 
@@ -47,7 +47,12 @@ Vagrant.configure(2) do |config|
 
 	config.vm.provision 'shell', inline: $linux_script  
 	config.vm.provision "shell", path: "../common/compact.sh"
-	 
+
+    config.vm.provision "file", source: "../common/bashrc_vm", destination: ".bashrc"
+    config.vm.provision "file", source: "../common/gitconfig_vm", destination: ".gitconfig"
+    config.vm.provision "file", source: "../common/gitignore_vm", destination: ".gitignore"
+    config.vm.provision "file", source: "../common/config_vm", destination: ".ssh/config"
+
 	config.vm.define $my_name do |config|
 		config.vm.hostname = $my_name
 		config.vm.provider 'virtualbox' do |vb, override|
