@@ -53,10 +53,10 @@ echo $CHECKSUM >> $OSUMS
 echo $CHECKSUM
 <<fix up the json file, see below>>
 scp -P 23456 {$BASE_NAME.json,$OBOX,$OSUMS} danome@tinyprod.net:/var/www/boxes/
-vagrant box add ubuntu_dev/$IBOX --force --name $BASE_NAME.json  
+vagrant box add ubuntu_dev/$INAME $BASE_NAME.json --force
 
 ### retrieve a box from tinyprod
-box add http://tinyprod.net/boxes/ubuntu-dev-msp430.json
+vagrant box add http://tinyprod.net/boxes/ubuntu-dev-msp430.json
 or
 wget --quiet http://tinyprod.net/boxes/ubuntu_dev-basic.2015-10-27.box
 vagrant box add ubuntu-dev/msp430 ubuntu_dev-basic.2015-10-27.box
