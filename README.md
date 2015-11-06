@@ -39,7 +39,7 @@ export ILIST='Vagrantfile'
 ## General boxing rules using variables for specific box definition
 ###  package new box and add it to local repo. Also, save copy of box in dropbox to share.
 export BASE_NAME=ubuntu_dev-$INAME
-export TARGET=~/Dropbox/mammal-tag/Vagrant_boxes
+export TARGET=~/Downloads
 export IMAGE_NAME=$BASE_NAME.`date +%Y-%m-%d`
 export OBOX=$TARGET/$IMAGE_NAME.box
 export OSUMS=$TARGET/$IMAGE_NAME.sha256
