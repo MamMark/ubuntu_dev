@@ -19,13 +19,14 @@ apt-get purge -y modemmanager
 echo "*** msp430 development environment ready for packaging"
 SCRIPT
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+# Vagrantfile API/syntax version. Must be version 2
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "ubuntu_dev/basic"
-	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-11-01.json'
-	config.vm.box_download_checksum = 'c811bec722f86c75350a5256d9fb66ebffb7454470af76f2b7ef77a4797924c8'
+	config.vm.box_version='0.1.4'
+	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
+	config.vm.box_download_checksum = 'c013fdac83138bdd73fb365de018e3264a20035a46a82c6698c9fca3bb205e92'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 
