@@ -10,7 +10,7 @@
 				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
 				"description_markdown": "Ubuntu 14.04 Development Environment",
 				"checksum_type": "sha256",
-				"checksum": "ae509e6897d824c29f021ed29c90160a7a18374e0897fcf43f1d3bb1719e9c22"
+				"checksum": "c013fdac83138bdd73fb365de018e3264a20035a46a82c6698c9fca3bb205e92"
 		}]
 	},{
 		"version": "0.1.3",
