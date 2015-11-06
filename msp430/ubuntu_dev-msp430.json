@@ -1,10 +1,30 @@
 {
 	"name": "ubuntu_dev/msp430",
-	"description": "This box is the Ubuntu_dev/basic box with TI MSP toolchain installed",
-	"short_description": "Trusty32 TI MSP Development box",
+	"description": "This box installs the  TI MSP toolchain on the Ubuntu_dev/basic box",
+	"short_description": "Ubuntu Trusty32 TI MSP Development box",
 	"versions": [{
-		"version": "0.1.1",
+		"version": "0.1.4",
 		"status": "active",
+		"providers": [{
+				"name": "virtualbox",
+				"description_html": "<p>TI MSP430 Development Environment</p>",
+				"description_markdown": "TI MSP430 Development Environment",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2015-11-06.box",
+				"checksum_type": "sha256",
+				"checksum": "5b0770218cf8a47a9cabe2854127d421bf1e3807f3b10ef1954b2b14876722d7"
+		}]
+	},{
+		"version": "0.1.2",
+		"providers": [{
+				"name": "virtualbox",
+				"description_html": "<p>TI MSP430 Development Environment</p>",
+				"description_markdown": "TI MSP430 Development Environment",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2015-11-03.box",
+				"checksum_type": "sha256",
+				"checksum": "74bd2e192ecec32764266f19f792704baa44dc44bc1c3349cfd9cacf0a4f8764"
+		}]
+	},{
+		"version": "0.1.1",
 		"providers": [{
 				"name": "virtualbox",
 				"description_html": "<p>TI MSP430 Development Environment</p>",
@@ -12,6 +32,6 @@
 				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2015-11-01.box",
 				"checksum_type": "sha256",
 				"checksum": "807306875e499c5443db534beda6202d77f04292b90b665751203978f3a9436a"
-        }]
-    }]
+		}]
+	}]
 }
