@@ -52,14 +52,23 @@ export CHECKSUM=`shasum -a 256 $OBOX`
 echo $CHECKSUM >> $OSUMS
 echo $CHECKSUM
 <<fix up the json file, see below>>
-scp -P 23456 {$BASE_NAME.json,$OBOX,$OSUMS} danome@tinyprod.net:/var/www/boxes/
+scp -P 23456 {$OBOX,$BASE_NAME.json,$OSUMS} danome@tinyprod.net:/var/www/boxes/
 vagrant box add ubuntu_dev/$INAME $BASE_NAME.json --force
 
-### retrieve a box from tinyprod
+### command to retrieve a box from tinyprod
 vagrant box add http://tinyprod.net/boxes/ubuntu-dev-msp430.json
 or
 wget --quiet http://tinyprod.net/boxes/ubuntu_dev-basic.2015-10-27.box
 vagrant box add ubuntu-dev/msp430 ubuntu_dev-basic.2015-10-27.box
+
+### add to Vagrantfile to load specific box version, and verify checksum
+config.vm.box = "ubuntu_dev/basic"
+config.vm.box_version='0.1.3'
+config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
+config.vm.box_download_checksum = '7df73c367e56b083c51812afb6f62c7f117a5e2baf15d784ebb335a708a286eb'
+config.vm.box_download_checksum_type = 'sha256'
+config.vm.box_check_update = true
+
 
 # EDIT the {basic,msp430}.json file with the new version, BOX name and CHECKSUM produced by steps above (example below)
 {
