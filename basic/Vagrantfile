@@ -48,11 +48,6 @@ Vagrant.configure(2) do |config|
 	config.vm.provision 'shell', inline: $linux_script  
 	config.vm.provision "shell", path: "../common/compact.sh"
 
-    config.vm.provision "file", source: "../common/bashrc_vm", destination: ".bashrc"
-    config.vm.provision "file", source: "../common/gitconfig_vm", destination: ".gitconfig"
-    config.vm.provision "file", source: "../common/gitignore_vm", destination: ".gitignore"
-    config.vm.provision "file", source: "../common/config_vm", destination: ".ssh/config"
-
 	config.vm.define $my_name do |config|
 		config.vm.hostname = $my_name
 		config.vm.provider 'virtualbox' do |vb, override|
