@@ -55,8 +55,11 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "public_network", bridge: ""
 
+  timezone = File.read("/etc/timezone")
+
   config.vm.provider "virtualbox" do |vb, override|
     vb.name = $box_name
+    override.vm.provision :shell, :inline => "echo \"#{timezone}\" | sudo tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
     override.vm.provision :shell, privileged: false, inline: $modify_bashrc
   end
 end
