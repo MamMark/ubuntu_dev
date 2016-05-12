@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
 #TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_02_02_00/exports/msp430-gcc-full-linux-installer-3.2.2.0.run
-TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_05_00_00/exports/msp430-gcc-full-linux-installer-3.5.0.0.run
+#TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/3_05_00_00/exports/msp430-gcc-full-linux-installer-3.5.0.0.run
+TI_MSPGCC_URL=http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSPGCC/4_00_01_00/exports/msp430-gcc-full-linux-installer-4.0.1.0.run
 TI_MSPGCC_DIR=/opt/ti-mspgcc
 
 echo "***"
 echo "*** Downloading TI MSPGCC tools"
 wget -nv -O installer $TI_MSPGCC_URL
 
-echo "*** Installing TI MSPGCC"
+echo "*** Installing TI MSPGCC into ${TI_MSPGCC_DIR}"
 chmod +x installer
 ./installer --mode unattended --prefix $TI_MSPGCC_DIR
+
 # Copy headers and ldscripts to the correct location to prevent the need to explicitly include them
 cp $TI_MSPGCC_DIR/{include/*.h,msp430-elf/include}
 cp $TI_MSPGCC_DIR/{include/*.ld,msp430-elf/lib}
