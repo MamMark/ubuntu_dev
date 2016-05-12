@@ -1,5 +1,9 @@
 # ubuntu_dev
 
+*** Box releases:
+basic:  0.2.0   updated to current VBox Guest additions
+msp430: 0.2.0   includes flasher, TI toolchain 4.0.1.0
+
 ## basic
 Files for building Linux 14.04 cloud-server box image with common development libraries
 
