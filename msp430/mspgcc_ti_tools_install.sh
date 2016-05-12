@@ -18,17 +18,38 @@ cp $TI_MSPGCC_DIR/{include/*.ld,msp430-elf/lib}
 echo "export PATH=$TI_MSPGCC_DIR/bin:$PATH" >> /etc/profile
 $TI_MSPGCC_DIR/install_scripts/msp430uif_install.sh
 
-ln -s $TI_MSPGCC_DIR/bin/libmsp430.so /usr/lib/
+# don't move libmsp430.so.  happens later with Flasher
+# ln -s $TI_MSPGCC_DIR/bin/libmsp430.so /usr/lib/
+
 /bin/rm -rf installer
 
 # package upgrade happens in other provisioning script which runs
 # after this one.  So don't do this twice.
+# mspdebug gets installed with the mspgcc46 tools
 # 
 # echo "*** Upgrading System"
 # apt-get update
 # apt-get -y -V dist-upgrade
 # echo "*** Upgrade complete"
 # apt-get install -y -V mspdebug linux-image-extra-virtual
+
+if [ $(uname -m) == 'x86_64' ] ; then
+  SRC_DIR=MSPFlasher_64_1.3.8
+else
+  SRC_DIR=MSPFlasher_32_1.3.8
+fi
+
+mkdir install
+(cd install; tar xf ../flasher.tgz)
+SRC_DIR=/home/vagrant/install/${SRC_DIR}
+
+echo "***"
+echo "*** installing Flasher and libmsp430.so into /usr/local"
+install -v ${SRC_DIR}/libmsp430.so  /usr/local/lib
+install -v ${SRC_DIR}/MSP430Flasher /usr/local/bin
+echo "*** updating ldconfig library cache"
+ldconfig
+/bin/rm -rf install flasher.tgz
 
 echo "***"
 echo "*** TI tools (msp430) install complete"

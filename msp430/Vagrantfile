@@ -24,12 +24,14 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "ubuntu_dev/basic"
-	config.vm.box_version='0.1.4'
+	config.vm.box_version='0.2.0'
 	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
-	config.vm.box_download_checksum = 'c013fdac83138bdd73fb365de018e3264a20035a46a82c6698c9fca3bb205e92'
+	config.vm.box_download_checksum = 'f5218b63f21219beaefaf4e8c933d1cf16ec840056a19505622017c5f2ffab20'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 
+	config.ssh.insert_key = false
+        config.vm.provision "file", source: "flasher.tgz", destination: "./flasher.tgz"
 	config.vm.provision :shell, path: "mspgcc_ti_tools_install.sh"
 	config.vm.provision :shell, path: "mspgcc46_tools_install.sh"
 	config.vm.provision :shell, inline: $post_install_script
