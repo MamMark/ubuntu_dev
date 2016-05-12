@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+# use_basic: basically use basic to instantiate a basic vm.
+# from: ubuntu_dev/basic/Vagrantfile.use_basic
+#
+
+$my_name = "u1404-dev-basic"
+
+# scripts
+#
+
+# Vagrantfile API/syntax version. Must be version 2
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+	config.vm.box = "ubuntu_dev/basic"
+	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
+	config.vm.box_check_update = true
+
+	config.ssh.insert_key = false
+	config.vm.provision "shell", path: "../common/compact.sh"
+
+	config.vm.define $my_name do |config|
+		config.vm.hostname = $my_name
+		config.vm.provider "virtualbox" do |vb, override|
+			vb.name = $my_name
+			override.vm.synced_folder "~/", "/home/vagrant/home"
+
+			vb.customize ["modifyvm", :id, "--memory", 1024]
+		end
+	end
+end
