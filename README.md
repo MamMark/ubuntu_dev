@@ -30,7 +30,7 @@ vagrant box add ubuntu_dev/basic ubuntu_dev-basic_2015-10-22.box --force
 
 ## variables for boxing ubuntu_dev-basic
 export INAME=basic
-export ILIST='Vagrantfile,README.md'
+export ILIST='Vagrantfile,../README.md'
 
 ## variables for boxing ubuntu_dev-msp430
 export INAME=msp430
@@ -52,14 +52,14 @@ export CHECKSUM=`shasum -a 256 $OBOX`
 echo $CHECKSUM >> $OSUMS
 echo $CHECKSUM
 <<fix up the json file, see below>>
-scp -P 23456 {$OBOX,$BASE_NAME.json,$OSUMS} danome@tinyprod.net:/var/www/boxes/
+scp -P 23456 {$BASE_NAME.json,$OSUMS,$OBOX} tinyprod.net:/var/www/boxes/
 vagrant box add ubuntu_dev/$INAME $BASE_NAME.json --force
 
 ### command to retrieve a box from tinyprod
-vagrant box add http://tinyprod.net/boxes/ubuntu-dev-msp430.json
+vagrant box add http://tinyprod.net/boxes/ubuntu_dev-msp430.json
 or
 wget --quiet http://tinyprod.net/boxes/ubuntu_dev-basic.2015-10-27.box
-vagrant box add ubuntu-dev/msp430 ubuntu_dev-basic.2015-10-27.box
+vagrant box add ubuntu-dev/basic ubuntu_dev-basic.2015-10-27.box
 
 ### add to Vagrantfile to load specific box version, and verify checksum
 config.vm.box = "ubuntu_dev/basic"
@@ -95,3 +95,17 @@ config.vm.box_check_update = true
         }]
     }]
 }
+
+
+*** Make sure that VirtualBox Guest Additions are up to date.
+    from: http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
+
+same directory as basic/Vagrantfile:
+
+$ vagrant plugin install vagrant-vbguest
+
+then build basic.
+
+$ vagrant up
+
+will now check for correct VirtualBox Guest Additions and install if out of sync.
