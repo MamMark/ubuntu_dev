@@ -3,6 +3,17 @@
 	"description": "This box installs the  TI MSP toolchain on the Ubuntu_dev/basic box",
 	"short_description": "Ubuntu Trusty32 TI MSP Development box",
 	"versions": [{
+		"version": "0.3.0",
+		"status": "active",
+		"providers": [{
+				"name": "virtualbox",
+				"description_html": "<p>TI MSP430 Development Environment</p>",
+				"description_markdown": "TI MSP430 Development Environment",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2016-08-30.box",
+				"checksum_type": "sha256",
+				"checksum": "5252de271b56e2d379d3e78298debbfabd656aa84c6d40fa26a206fca92a3db9"
+		}]
+	},{
 		"version": "0.2.0",
 		"status": "active",
 		"providers": [{
@@ -12,36 +23,6 @@
 				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2016-05-11.box",
 				"checksum_type": "sha256",
 				"checksum": "c8e353263c741032ac8e7ef9e0b52fd99c7d8f3316c564c94f5ec6ef4b0afa67"
-		}]
-	},{
-		"version": "0.1.4",
-		"providers": [{
-				"name": "virtualbox",
-				"description_html": "<p>TI MSP430 Development Environment</p>",
-				"description_markdown": "TI MSP430 Development Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2015-11-06.box",
-				"checksum_type": "sha256",
-				"checksum": "5b0770218cf8a47a9cabe2854127d421bf1e3807f3b10ef1954b2b14876722d7"
-		}]
-	},{
-		"version": "0.1.2",
-		"providers": [{
-				"name": "virtualbox",
-				"description_html": "<p>TI MSP430 Development Environment</p>",
-				"description_markdown": "TI MSP430 Development Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2015-11-03.box",
-				"checksum_type": "sha256",
-				"checksum": "74bd2e192ecec32764266f19f792704baa44dc44bc1c3349cfd9cacf0a4f8764"
-		}]
-	},{
-		"version": "0.1.1",
-		"providers": [{
-				"name": "virtualbox",
-				"description_html": "<p>TI MSP430 Development Environment</p>",
-				"description_markdown": "TI MSP430 Development Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2015-11-01.box",
-				"checksum_type": "sha256",
-				"checksum": "807306875e499c5443db534beda6202d77f04292b90b665751203978f3a9436a"
 		}]
 	}]
 }
