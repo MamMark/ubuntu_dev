@@ -3,6 +3,16 @@
 	"description": "This box contains Ubuntu 14.04 32-bit Vagrant server (headless) with development packages installed",
 	"short_description": "Trusty32 Development Server",
 	"versions": [{
+		"version": "0.3.0",
+		"providers": [{
+				"name": "virtualbox",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2016-08-30.box",
+				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
+				"description_markdown": "Ubuntu 14.04 Development Environment",
+				"checksum_type": "sha256",
+				"checksum": "07a9e3fba92a01dfde5074059ba6074bc1aeeb4c430c2463e746bb03d9887eea"
+		}]
+	},{
 		"version": "0.2.0",
 		"providers": [{
 				"name": "virtualbox",
@@ -11,36 +21,6 @@
 				"description_markdown": "Ubuntu 14.04 Development Environment",
 				"checksum_type": "sha256",
 				"checksum": "f5218b63f21219beaefaf4e8c933d1cf16ec840056a19505622017c5f2ffab20"
-		}]
-	},{
-		"version": "0.1.4",
-		"providers": [{
-				"name": "virtualbox",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-11-06.box",
-				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
-				"description_markdown": "Ubuntu 14.04 Development Environment",
-				"checksum_type": "sha256",
-				"checksum": "c013fdac83138bdd73fb365de018e3264a20035a46a82c6698c9fca3bb205e92"
-		}]
-	},{
-		"version": "0.1.3",
-		"providers": [{
-				"name": "virtualbox",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-11-05.box",
-				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
-				"description_markdown": "Ubuntu 14.04 Development Environment",
-				"checksum_type": "sha256",
-				"checksum": "7df73c367e56b083c51812afb6f62c7f117a5e2baf15d784ebb335a708a286eb"
-		}]
-	},{
-		"version": "0.1.1",
-		"providers": [{
-				"name": "virtualbox",
-				"description_html": "<p>Dev Environment</p>",
-				"description_markdown": "Dev Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-11-01.box",
-				"checksum_type": "sha256",
-				"checksum": "c811bec722f86c75350a5256d9fb66ebffb7454470af76f2b7ef77a4797924c8"
 		}]
 	}]
 }
