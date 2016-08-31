@@ -1,0 +1,59 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+#	ubuntu_dev/arm_msp
+#
+
+$my_name = "u1404-dev-arm-msp"
+
+# scripts
+#
+$post_install_script = <<SCRIPT
+echo "*** ADDING groups {plugdev, dialout} to users {ubuntu, vagrant}"
+gpasswd -a `whoami` plugdev
+gpasswd -a `whoami` dialout
+gpasswd -a vagrant plugdev
+gpasswd -a vagrant dialout
+echo "*** PURGING modemmanager"
+apt-get purge -y modemmanager
+echo "*** arm/msp development environment ready for packaging"
+SCRIPT
+
+# Vagrantfile API/syntax version. Must be version 2
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+        config.vm.box = "ubuntu_dev/msp430"
+        config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-msp430.json'
+	config.vm.box_version='0.3.0'
+	config.vm.box_download_checksum = '5252de271b56e2d379d3e78298debbfabd656aa84c6d40fa26a206fca92a3db9'
+	config.vm.box_download_checksum_type = 'sha256'
+	config.vm.box_check_update = true
+
+	config.ssh.insert_key = false
+	config.vm.provision :shell, path: "arm_tools_install.sh"
+	config.vm.provision :shell, inline: $post_install_script
+	config.vm.provision "shell", path: "../common/compact.sh"
+
+  # Enable USB access
+	usb_devs = [
+		['0x0451', '0xbef3', 'xds110, msp432 LP'],
+		['0x1366', '0x0101', 'segger j-link'],
+		['0x2047', '0x0010', 'msp-fet430uif (v3)'],
+		['0x2047', '0x0014', 'msp-fet'],
+	]
+
+	config.vm.define $my_name do |config|
+		config.vm.hostname = $my_name
+		config.vm.provider "virtualbox" do |vb, override|
+			vb.name = $my_name
+			override.vm.synced_folder "~/", "/home/vagrant/home"
+
+			vb.customize ["modifyvm", :id, "--memory", 2048]
+			vb.customize ['modifyvm', :id, '--usb', 'on']
+			usb_devs.each do |dev|
+				vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
+			end
+		end
+	end
+end

@@ -1,0 +1,15 @@
+{
+	"name": "ubuntu_dev/arm_msp",
+	"description": "Ubuntu based TI ARM/MSP432 toolchain",
+	"short_description": "Ubuntu Trusty32 TI MSP432/ARM, MSP430 Development box",
+	"versions": [{
+		"version": "0.2.5",
+		"status": "active",
+		"providers": [{
+				"name": "virtualbox",
+				"description_html": "<p>TI ARM/MSP Development Environment</p>",
+				"description_markdown": "TI ARM/MSP Development Environment",
+				"url": "file:///home/cire/Downloads/ubuntu_dev-arm_msp.2016-08-30.box"
+		}]
+	}]
+}
