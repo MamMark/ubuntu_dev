@@ -1,4 +1,11 @@
 # ubuntu_dev/basic
-Vagrantfile to build vagrant box based on Linux 14.04 cloud-server box image with common development libraries
 
+The Basic box is a vagrant box that includes a core set of utilities for development.
 
+Includes:
+
+    build-essential
+    python
+    openjdk
+    libusb
+    CCS pre-reqs
