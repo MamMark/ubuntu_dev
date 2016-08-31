@@ -1,8 +1,12 @@
 # ubuntu_dev
 
 *** Box releases:
-basic:  0.2.0   updated to current VBox Guest additions
-msp430: 0.2.0   includes flasher, TI toolchain 4.0.1.0
+basic:   0.2.0   updated to current VBox Guest additions
+         0.3.0   update to Ubuntu 14.04.5, Vbox client 5.0.26
+                 update packages for CCS dependencies
+msp430:  0.2.0   includes flasher, TI toolchain 4.0.1.0
+         0.3.0   on basic 0.3.0
+arm_msp: 0.3.0   adds arm/msp432 toolchain and tools to msp430
 
 ## basic
 Files for building Linux 14.04 cloud-server box image with common development libraries
@@ -10,11 +14,14 @@ Files for building Linux 14.04 cloud-server box image with common development li
 ## msp430
 Files for building TI-MSP430 software, including Vagrantfiles and other scripts
 
+## arm432
+Files for building TI-MSP432 (ARM Cortex-M4F) software.
+
 ## common
 Common scripts and other shared files
 
-## mammap
-files for test mammal tagging application
+## mammark
+files for test mammal tagging (marking) application
 
 
 #######################################################################################################
@@ -23,10 +30,8 @@ files for test mammal tagging application
 ##
 ## COMMAND to install a previously built and published box
 
-curl -O -L "https://www.dropbox.com/s/xvi8x8g9ga8nryb/ubuntu_dev-basic_2015-10-22.box"
-vagrant box add ubuntu_dev/basic ubuntu_dev-basic_2015-10-22.box --force
-
-# bug in dropbox, not working: vagrant box add /Users/dmaltbie/Dropbox/mammal-tag/ubuntu_dev/basic/basic.json
+curl -O -L "http://tinyprod.net/boxes/ubuntu_dev-basic_2016-08-30.box"
+vagrant box add ubuntu_dev/basic ubuntu_dev-basic_2016-08-30.box --force
 
 
 ## INSTRUCTIONS to make the Vagrant box. 
