@@ -31,5 +31,13 @@ images/*
 *.app
 
 # other
+*.box
 .pydevproject
 .vagrant/
+*~
+#*#
+.#*
+TAGS
+*.class
+*.pyc
+*.tar
