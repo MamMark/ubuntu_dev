@@ -1,0 +1,84 @@
+
+These are notes about the msp432 toolchain.
+
+The TI msp432 is a low power ARM Cortex-M4F with msp430 peripherals integrated
+on chip.  Little endian.
+
+The ARM toolchain is supported by the ARM folks and maintained at:
+
+    https://launchpad.net/gcc-arm-embedded
+
+As of 8/27/2016, the current version is 5.4 (6.0 is also available), but we back rev to 4.9.
+The TinyOS source somehow tickles a bug having something to do with "restrict".  So we use
+4.9 which works.
+
+
+Installation Candidates::
+
+  toolchain:        https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
+
+  msp432 support -> msp432-gcc-support-files
+                msp432-gcc-1.0.0.1-linux-support-package-installer.run
+
+  xds110_reset  http://processors.wiki.ti.com/index.php/XDS_Emulation_Software_Package
+    emupack       see above
+
+  openocd       https://github.com/gnuarmeclipse/openocd/releases/download/gae-0.9.0-20150519/
+                  gnuarmeclipse-openocd-debian32-0.9.0-201505190955.tgz
+                  gnuarmeclipse-openocd-debian32-0.10.0-201601101000-dev.tgz
+
+  seeger j-link:    https://www.segger.com/downloads/jlink/jlink_6.0.7_i386.deb
+        systemview: https://www.segger.com/downloads/jlink/systemview_2.40_i386.deb
+        ozone:      https://www.segger.com/downloads/jlink/ozone_2.18.3_i386.deb
+
+
+*** Toolchain ***
+
+The main ARM toolchain (maintained by ARM) can be found at:
+
+    https://launchpad.net/gcc-arm-embedded
+    https://launchpad.net/~team-gcc-arm-embedded/+archive/ubuntu/ppa
+
+Installation:
+    current is 5.4 but has issues with "restrict"  Doesn't compile tinyos cortex
+    gcc arm 4.9 works.
+
+    sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+    sudo apt-get update
+    sudo apt-get install gcc-arm-embedded
+
+    TI, GCC ARM standalone: (support files, chip defines)
+    msp432-gcc-opensource: http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP432GCC/latest/index_FDS.html
+    http://www.ti.com/lit/ug/slau688/slau688.pdf (embedded toolchain)
+    http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP432GCC/latest/index_FDS.html
+        msp432-gcc-1.0.0.1-linux-support-package-installer.run
+        msp432-gcc-support-files.zip
+
+
+*** IDEs ***
+
+Code Composer Studio: http://processors.wiki.ti.com/index.php/Download_CCS
+Eclipse (gnuarmeclipse): http://gnuarmeclipse.github.io/install/
+
+
+*** Debug Probes ***
+
+Probe on LaunchPad: XDS110-ET, http://processors.wiki.ti.com/index.php/XDS110
+
+Seeger J-Link Edu: https://www.segger.com/jlink-debug-probes.html
+
+OpenOCD: s/w for talking to debug probes
+
+xds emulation package: http://processors.wiki.ti.com/index.php/XDS_Emulation_Software_Package
+  emupack
+  xds110_reset
+
+
+
+*** Installation of OpenOCD (gnuarmeclipse) ***
+
+https://github.com/gnuarmeclipse/openocd
+
+instructions from: http://gnuarmeclipse.github.io/openocd/install/
+
+
