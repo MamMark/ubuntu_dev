@@ -3,14 +3,14 @@
 	"description": "This box contains Ubuntu 14.04 32-bit Vagrant server (headless) with development packages installed",
 	"short_description": "Trusty32 Development Server",
 	"versions": [{
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"providers": [{
 				"name": "virtualbox",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2016-08-30.box",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2016-09-03.box",
 				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
 				"description_markdown": "Ubuntu 14.04 Development Environment",
 				"checksum_type": "sha256",
-				"checksum": "07a9e3fba92a01dfde5074059ba6074bc1aeeb4c430c2463e746bb03d9887eea"
+				"checksum": "429aaf2663dbbd7e54d9f5ee4b9b88f177569620e42baa00568e87ea76f9ef2b"
 		}]
 	},{
 		"version": "0.2.0",

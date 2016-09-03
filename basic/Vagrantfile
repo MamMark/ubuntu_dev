@@ -25,7 +25,7 @@ echo "*** INSTALLING linux-headers-generic linux-image-extra-virtual linux-firmw
 echo "*** INSTALLING emacs emacs24-el git-el tree unzip"
 
 apt-get install -qy --force-yes \
-	build-essential git gitk\
+	build-essential firefox git gitk\
 	python python3 python-dev python-serial python3-serial \
 	openjdk-7-jre openjdk-7-jdk \
 	libusb-dev libreadline-dev \
