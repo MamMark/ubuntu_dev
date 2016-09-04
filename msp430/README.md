@@ -14,6 +14,14 @@ The TI toolchain for the msp430 is the new Redhat version.  It is version
     - MSPDebugStack 3.7.0.12
     - MSP430 GDB Agent 6.0.14.5
 
+We install MSPFlasher 1.3.10 which has libmsp430/3.8.1.0 (MSPDebugStack).
+These are installed into /usr/local/{bin,lib}.
+
+NOTE: a different MSPDebugStack from what is in the msp-fet probe will cause
+a potential f/w update on the probe.  If you use CCS it may have a different
+MSPDebugStack and will want to update the f/w in the probe.  You should keep
+MSPFlasher and CCS at the same version of MSPDebugStack.
+
 This toolchain is installed in /opt/ti-mspgcc.
 
 PATHS:

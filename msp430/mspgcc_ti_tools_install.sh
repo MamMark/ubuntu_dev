@@ -35,12 +35,15 @@ $TI_MSPGCC_DIR/install_scripts/msp430uif_install.sh
 # echo "*** Upgrade complete"
 # apt-get install -y -V mspdebug linux-image-extra-virtual
 
-if [ $(uname -m) == 'x86_64' ] ; then
-  SRC_DIR=MSPFlasher_64_1.3.8
-else
-  SRC_DIR=MSPFlasher_32_1.3.8
-fi
+# 1.3.10 is 32 bit only but it works fine on 64 bit machines
 
+#if [ $(uname -m) == 'x86_64' ] ; then
+#  SRC_DIR=MSPFlasher_64_1.3.8
+#else
+#  SRC_DIR=MSPFlasher_32_1.3.8
+#fi
+
+SRC_DIR=MSPFlasher_32_1_3_10
 mkdir install
 (cd install; tar xf ../flasher.tgz)
 SRC_DIR=/home/vagrant/install/${SRC_DIR}
