@@ -3,15 +3,15 @@
 	"description": "This box installs the  TI MSP toolchain on the Ubuntu_dev/basic box",
 	"short_description": "Ubuntu Trusty32 TI MSP Development box",
 	"versions": [{
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"status": "active",
 		"providers": [{
 				"name": "virtualbox",
 				"description_html": "<p>TI MSP430 Development Environment</p>",
 				"description_markdown": "TI MSP430 Development Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2016-08-30.box",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-msp430.2016-09-04.box",
 				"checksum_type": "sha256",
-				"checksum": "5252de271b56e2d379d3e78298debbfabd656aa84c6d40fa26a206fca92a3db9"
+				"checksum": "abe3752b4313b88a3727d0e6af9d56e8423efd0d8cc0aae99b0eead0986ca0ed"
 		}]
 	},{
 		"version": "0.2.0",
