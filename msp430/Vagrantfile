@@ -42,6 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		# Required for programming new fraunchpad
 		['0x2047', '0x0013', 'MSP4305969 Launchpad programmer'],
 		['0x2047', '0x0203', 'MSP4305969 Launchpad FW updater'],
+		['0x2047', '0x0204', 'MSP432 Launchpad FW updater'],
 		# Other USB ids from TI's udev rules.
 		['0x2047', '0x0010', 'MSP430UIF (V3)'],
 		['0x2047', '0x0014', 'MSP430UIF'],
