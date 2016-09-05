@@ -1,0 +1,76 @@
+
+Code Composer
+
+We use code composer for various advanced tracing, program flow, and energy trace.
+It needs to be installed manually for the local user, vagrant.  There are various
+install issues if installed as root.  It should get installed as
+/home/vagrant/ti/ccsv6.
+
+Projects and Build Handbook:
+    http://processors.wiki.ti.com/index.php/Projects_and_Build_Handbook_for_CCS
+Debug Handbook for CCS:
+    http://processors.wiki.ti.com/index.php/Debug_Handbook_for_CCS
+SWO Trace:
+    http://processors.wiki.ti.com/index.php/SWO_Trace
+SWO/CCS/Hardware Trace:
+    http://www.ti.com/lit/an/slaa674a/slaa674a.pdf
+
+XDS110:
+    http://processors.wiki.ti.com/index.php/XDS110
+
+    the xds110-et is the onboard jtag pod on the msp-exp432p401r launchpad
+    dev board.
+
+    Black LP: SN 0, fw: 02.02.04.00
+    Red LP: SN M4321005, fw: 02.02.05.01
+    update to 02.03.00.02
+
+XDS110 is OpenOCD ready (0.8 and above)
+
+
+Firmware Updating:
+
+Black LP: 0451/bef3 normal XDS110 (02.02.04.00) with CMSIS-DAP, sn 00000000
+      dfu 1cbe/00ff Tiva Device Firmware Update
+      Luminary Micro Inc. Stellaris ROM DFU Bootloader
+Red LP:   0451/bef3 normal XDS110 (02.02.05.01) with CMSIS-DAP, sn M4321005
+      dfu 1cbe/00ff Tiva Device Firmware Update
+
+
+Install of msp432-gcc-1.0.0.1-linux-support-package into /opt/ti-arm has binaries
+that need execute permission to run.
+
+    /opt/ti-arm/emulation/common/uscif/gdb_agent_console
+    /opt/ti-arm/emulation/common/uscif/dbgjtag
+    /opt/ti-arm/emulation/common/uscif/xds110/xds110reset
+    /opt/ti-arm/emulation/common/uscif/xds110/xdsdfu
+
+Install of ti_emupack_setup_6.0.407.3_linux results in binaries set to mode 777.
+install into /opt/ti-emu.
+
+What version of the xds110 firmware is supplied by the various packages:
+(would be nice if there was a reasonable way to identify the fw version)
+
+ti-arm/emulation/common/uscif/xds110/xdsdfu             (has _{jtag,swd}.dat)
+        Apr 28 06:31 firmware.bin       02.03.00.01
+ti/ccsv6/ccs_base/common/uscif/xds110/xdsdfu
+        Aug  3 14:55 firmware.bin       02.03.00.02
+ti-emu/ccs_base/common/uscif/xds110/xdsdfu
+        Aug  3 14:55 firmware.bin       02.03.00.02
+
+
+CMSIS:
+    Keil, http://www.keil.com/pack/doc/CMSIS/General/html/index.html
+
+
+Flashing XDS110:  (/opt/ti/ccsv6/common/uscif/xds110/xdsdfu)
+    xdsdfu -f firmware.bin -r
+
+
+Segger:
+    Jlink (non-clone) 1366/0101 S/N 000269400672
+
+    Ozone (gui debugger)
+
+    Install JLink support into CCS:
+        https://www.segger.com/ti-code-composer-studio.html#ccs6
