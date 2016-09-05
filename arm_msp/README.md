@@ -19,12 +19,13 @@ ARM Paths:
     /usr/gcc-arm-none-eabi-4_9-2015q3/share/doc/gcc-arm-none-eabi/man
     /usr/gcc-arm-none-eabi-4_9-2015q3/share/doc/gcc-arm-none-eabi/info
 
-TI ARM tools and support files can be found in /opt/ti, /opt/ti-arm, and
-ti-mspgcc.
+Various TI ARM tools and support files can be found in /opt/ti, /opt/ti-arm,
+/opt/ti-emu, and /opt/ti-mspgcc.
 
-Code Composer Studio is installed in /opt/ti/ccsv6 and can run via
+A network installer for Code Composer is in /home/vagrant/CCS_web_linux.tar.gz.
+Currently it should install CCS 6.1.3.  It is intended to install CCS locally
+as /home/vagrant/ti/ccsv6.  Other TI installers are also left in /home/vagrant
 
-    /opt/ti/ccsv6/eclipse/ccstudio
 
 arm include files (msp432 and arm):
 
@@ -38,3 +39,6 @@ CCS install:
 
 TI msp432 support package:
 /opt/ti-arm
+
+TI msp432 emulation  package
+/opt/ti-emu
