@@ -5,11 +5,14 @@ basic:   0.2.0   updated to current VBox Guest additions
          0.3.0   update to Ubuntu 14.04.5, Vbox client 5.0.26
                  update packages for CCS dependencies
          0.3.1   add firefox for CCS
+         0.4.0   update to 64 bit
 msp430:  0.2.0   includes flasher, TI toolchain 4.0.1.0
          0.3.0   on basic 0.3.0
          0.3.1   basic 0.3.1, add flasher 1.3.10 (MSPDEBUG 3.8.1.0)
+         0.4.0   update to 64 bit
 arm_msp: 0.3.0   adds arm/msp432 toolchain and tools to msp430
          0.3.1   msp430 box 0.3.1, add CCS network installer
+         0.4.0   update to 64 bit
 
 ## basic
 Files for building Linux 14.04 cloud-server box image with common development libraries

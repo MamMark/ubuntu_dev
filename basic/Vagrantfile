@@ -33,6 +33,7 @@ apt-get install -qy --force-yes \
 	emacs emacs24-el git-el tree unzip
 
 echo "*** INSTALLING CCS prereqs"
+dpkg --add-architecture i386
 apt-get install -qy --force-yes \
         libc6:i386 libx11-6:i386 libasound2:i386 libatk1.0-0:i386 libcairo2:i386 libcups2:i386 libdbus-glib-1-2:i386 libgconf-2-4:i386 libgdk-pixbuf2.0-0:i386 libgtk-3-0:i386 libice6:i386 libncurses5:i386 libsm6:i386 liborbit2:i386 libudev1:i386 libusb-0.1-4:i386 libstdc++6:i386 libxt6:i386 libxtst6:i386 libgnomeui-0:i386 libusb-1.0-0-dev:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 unzip
 
@@ -42,14 +43,14 @@ apt-get install -qy --force-yes \
 SSCRIPT
 
 Vagrant.configure(2) do |config|
-	config.vm.box = 'trusty32'
-	config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20160829/trusty-server-cloudimg-i386-vagrant-disk1.box'
-	config.vm.box_download_checksum = '9d28869e19abc0027de93d9bc7c4a2870872433c56c2eb278711cd0a371dbf15'
+	config.vm.box = 'trusty64'
+	config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/20160830/trusty-server-cloudimg-amd64-vagrant-disk1.box'
+	config.vm.box_download_checksum = 'e3e6c708ec2388a633512b6efe0ee3081d1780171ed474cc210d70731a1f7a5a'
 	config.vm.box_download_checksum_type = 'sha256'
 
 	config.ssh.insert_key = false
 
-	config.vm.provision 'shell', inline: $linux_script  
+	config.vm.provision 'shell', inline: $linux_script
 	config.vm.provision "shell", path: "../common/compact.sh"
 
 	config.vm.define $my_name do |config|

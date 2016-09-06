@@ -25,8 +25,8 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.box = "ubuntu_dev/msp430"
         config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-msp430.json'
-	config.vm.box_version='0.3.1'
-	config.vm.box_download_checksum = 'abe3752b4313b88a3727d0e6af9d56e8423efd0d8cc0aae99b0eead0986ca0ed'
+	config.vm.box_version='0.4.0'
+	config.vm.box_download_checksum = '7595920a499efb4117ad3dde4a70b14df576ca0f19e7b319f7d25b887810329e'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 

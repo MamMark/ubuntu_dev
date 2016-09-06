@@ -3,21 +3,21 @@
 #
 # Installs:
 # arm tools: (gcc-arm-none-eabi-4_9-2015q3)
-# CCS (code composer): CCS6.1.3.00034_linux.tar.gz superseeded by network install.
+# CCS (code composer): web installer
 # TI GCC support package for 432 procs: (msp432-gcc-1.0.0.1-linux-support-package-installer.run)
 # TI Emulation package: (ti_emupack_setup_6.0.407.3_linux_i386.bin)
 #
 
-#CCS_VERSION=6.1.3.00034
-
 ARM_TOOLS_URL=https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
 
+mkdir installs
+cd installs
 echo "***"
 echo "*** Downloading ARM toolchain"
 wget -nv -O gcc-arm-none-eabi.tar.bz2 $ARM_TOOLS_URL
 
 echo "*** Installing ARM toolchain"
-(cd /usr; tar xf /home/vagrant/gcc-arm-none-eabi.tar.bz2)
+(cd /usr; tar xf /home/vagrant/installs/gcc-arm-none-eabi.tar.bz2)
 
 echo "*** Downloading TI ARM packages"
 wget -nv -O msp432-gcc-support http://tinyprod.net/dev-archive/msp432-gcc-1.0.0.1-linux-support-package-installer.run

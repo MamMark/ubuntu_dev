@@ -24,9 +24,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "ubuntu_dev/basic"
-	config.vm.box_version='0.3.1'
+	config.vm.box_version='0.4.0'
 	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
-	config.vm.box_download_checksum = '429aaf2663dbbd7e54d9f5ee4b9b88f177569620e42baa00568e87ea76f9ef2b'
+	config.vm.box_download_checksum = 'c12a10bee6bfedd6625b4410fb0b1366f7f02da6cf95063a4975b867dc9c3598'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 

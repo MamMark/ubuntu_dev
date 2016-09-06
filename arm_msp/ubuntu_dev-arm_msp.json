@@ -3,15 +3,15 @@
 	"description": "Ubuntu based TI ARM/MSP432 toolchain",
 	"short_description": "Ubuntu Trusty32 TI MSP432/ARM, MSP430 Development box",
 	"versions": [{
-		"version": "0.2.6",
+		"version": "0.4.0",
 		"status": "active",
 		"providers": [{
 				"name": "virtualbox",
 				"description_html": "<p>TI ARM/MSP Development Environment</p>",
 				"description_markdown": "TI ARM/MSP Development Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.2016-09-04.box",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.2016-09-06.box",
 				"checksum_type": "sha256",
-				"checksum": "a9a1df3d5f42b5e3db1332fc28b8e6513784bc4d149ee2492a8c7a575339e718"
+				"checksum": "5ac148093ffa07587e704eac8396bb025c0caf65b9fc3524ae5e9bc2847d3edd"
 		}]
 	}]
 }
