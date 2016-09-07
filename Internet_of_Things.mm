@@ -137,11 +137,11 @@
 <node CREATED="1444979436678" MODIFIED="1444979436678" TEXT="Spark OS"/>
 <node CREATED="1444979436678" MODIFIED="1444979436678" TEXT="RIOT OS"/>
 </node>
-<node CREATED="1444778628283" FOLDED="true" ID="ID_128359753" MODIFIED="1444979826694" POSITION="right" TEXT="Networking">
+<node CREATED="1444778628283" FOLDED="true" ID="ID_128359753" MODIFIED="1449137903691" POSITION="right" TEXT="Networking">
 <node CREATED="1444778631202" ID="ID_1058366183" MODIFIED="1444778636377" TEXT="6LoWPAN"/>
 <node CREATED="1444778637392" ID="ID_24895109" MODIFIED="1444778638889" TEXT="RPL"/>
 </node>
-<node CREATED="1444777826340" FOLDED="true" ID="ID_279229588" MODIFIED="1444979733746" POSITION="right" TEXT="Market">
+<node CREATED="1444777826340" ID="ID_279229588" MODIFIED="1449137904586" POSITION="right" TEXT="Market">
 <node CREATED="1444777828668" ID="ID_72150036" MODIFIED="1444777829653" TEXT="Other than a role on IoT gateways serving the more resource constrained endpoint devices,  much of IoT in other markets in industrial, motor and machine control, and smart grid will be dominated by smaller MCU and RTOS alternatives.">
 <node CREATED="1444777837688" ID="ID_1112888870" LINK="http://www.embedded.com/electronics-blogs/cole-bin/4431815/Picking-the-right-RTOS-for-your-next-gen-embedded-IoT-design" MODIFIED="1444777837688" TEXT="embedded.com &gt; Electronics-blogs &gt; Cole-bin &gt; 4431815 &gt; Picking-the-right-RTOS-for-your-next-gen-embedded-IoT-design"/>
 </node>
@@ -172,9 +172,55 @@
 <node CREATED="1444979804083" MODIFIED="1444979804083" TEXT="The IETF 6LoWPAN working group has standardized a mechanism for an IPv6 packet to travel over networks of devices communicating using IEEE802.15.4 radios; this includes header compaction techniques to fit long IPv6 headers into short IEEE802.15.4 frames."/>
 <node CREATED="1444979804086" MODIFIED="1444979804086" TEXT="The IETF ROLL working group has standardized the RPL routing protocol, i.e. the distributed algorithm which finds the multi-hop path connecting the nodes in the network with a small number of destination nodes."/>
 </node>
-<node CREATED="1444978630029" FOLDED="true" ID="ID_459290587" MODIFIED="1444979828290" POSITION="right" TEXT="IOT Companies">
+<node CREATED="1444978630029" ID="ID_459290587" MODIFIED="1449137911542" POSITION="right" TEXT="IOT Companies">
+<node CREATED="1449137922018" ID="ID_1527292995" MODIFIED="1449137926586" TEXT="NETWORK OPERATORS">
+<node CREATED="1449138080771" ID="ID_669977796" MODIFIED="1449138082549" TEXT="Sigfox">
+<node CREATED="1449138086914" ID="ID_1430496267" MODIFIED="1449138086914" TEXT="Sigfox is a network operator for Internet Of Things running on free frequency band (868Mhz in France). Sigfox is deploying itself network in some countries like France. In some other they have partner to deploy it like arquiva in UK (on going actually 10 biggest cities); abertis in Spain, Aerea in Netherland. Actually some European cities are also deployed as pilot : Munich, Menlo, Milan, Warsaw, Dublin, Autria. San Fransisco &amp; Silicon Valley will come soon this year. The target is to have 60 countries in the next 5 Years. Thanks to the long range radio characteristic of the network, Spain has been deployed in 7 months. As to now, the network does not includes roaming constraints &amp; fee. A French licensed device works in any country where the network exists."/>
+<node CREATED="1449138086925" ID="ID_152839536" MODIFIED="1449138086925" TEXT="The network is high sensitivity with 2 way communication 140 *12 bytes messages a day uplink / 4 * 8 bytes messages downlink. Each of the messages are sent 3 times on different frequency to ensure it will be delivered. The devices are running ultra low energy with 10-25mW radio power. The technology is plug &amp; play : you do not have any peering process to accomplish to make it works (but you have to activate the device in the backend at least&#x2026;). Data are sent to a global backend whatever the network provider you are passing through and you have contract with. This backend will let you have access to your data in real time and will execute callback (data post) to you own specific backend to proceed your data."/>
+<node CREATED="1449138086955" MODIFIED="1449138086955" TEXT="Limits : due to low bandwidth / small messages architecture, the technology does not allow voice, video &#x2026; transfer for sure. But it is really fitting security, smart cities (traffic, parking waste, street lights&#x2026;) monitoring, automatic meter reading, leak detection, billing automation&#x2026;, tracking &amp; security, healthcare (fall detection, distress buttons&#x2026;), Agriculture."/>
+<node CREATED="1449138159770" ID="ID_862684483" MODIFIED="1449138159770" TEXT="Each device type is validated through this process and allow to display the Sigfox the logo and use the network. The compatibility of the radio module and the performance of the radio system / antenna is certified. The module use is simplifying the design/time to market and certification vs volume price. This price for this registration is about 2.5K&#x20ac; for end product already based on Sigfox ready transceiver/modules. Price decrease when you come from a second product or a new iteration of a certified product."/>
+</node>
+<node CREATED="1449138184178" ID="ID_521840406" MODIFIED="1449138185066" TEXT="http://www.disk91.com/2015/news/technologies/one-day-at-sigfox/"/>
+</node>
+<node CREATED="1449137934536" ID="ID_203597064" MODIFIED="1449137982920" TEXT="TECHNOLOGY">
+<node CREATED="1449137984135" ID="ID_270758168" MODIFIED="1449137984135" TEXT="Texas Instrument : CC112x (transceiver)"/>
+<node CREATED="1449137984147" ID="ID_1214185195" MODIFIED="1449137984147" TEXT="Silicon Labs : Si446X (transceiver)"/>
+<node CREATED="1449137984147" ID="ID_1914819915" MODIFIED="1449137984147" TEXT="Axsem : AX 8052 (Soc &#x2013; transceiver)"/>
+<node CREATED="1449137984148" ID="ID_533137049" MODIFIED="1449137984148" TEXT="Atmel : ATA8520 (Soc &#x2013; transceiver)"/>
+<node CREATED="1449137984149" ID="ID_937793863" MODIFIED="1449137984149" TEXT="ATIM : ARM- NANO (module)"/>
+<node CREATED="1449137984150" ID="ID_93931679" MODIFIED="1449137984150" TEXT="Telecom Design : TD120x (module)"/>
+<node CREATED="1449137984150" ID="ID_1580634063" MODIFIED="1449137984150" TEXT="Telit : LE51-868 S (module)"/>
+<node CREATED="1449137984151" ID="ID_1050735732" MODIFIED="1449137984151" TEXT="StickNTrack : asset Tracking (bicycle, trucks, packages)"/>
+<node CREATED="1449137984151" ID="ID_1752229094" MODIFIED="1449137984151" TEXT="Whislte : petTracking &#x2013; fitbit for dogs"/>
+</node>
+<node CREATED="1449138004424" ID="ID_303794051" MODIFIED="1449138007807" TEXT="SOLUTION">
+<node CREATED="1449138008856" ID="ID_681345049" MODIFIED="1449138046282" TEXT="Securitas"/>
+<node CREATED="1449138046291" ID="ID_1255552216" MODIFIED="1449138046292" TEXT="ClearChannels"/>
+<node CREATED="1449138046290" ID="ID_868470073" MODIFIED="1449138046291" TEXT="SnootLab"/>
+<node CREATED="1449138046290" ID="ID_830868822" MODIFIED="1449138046290" TEXT="Connit (sensors, supervision)"/>
+<node CREATED="1449138046289" ID="ID_1652286454" MODIFIED="1449138046289" TEXT="snef"/>
+<node CREATED="1449138046288" ID="ID_1181707902" MODIFIED="1449138046288" TEXT="Traqueur"/>
+<node CREATED="1449138046287" ID="ID_260757191" MODIFIED="1449138046287" TEXT="M2M (Container tracking)"/>
+<node CREATED="1449138046286" ID="ID_68097361" MODIFIED="1449138046286" TEXT="NigiLoc (stolen bike solution)"/>
+<node CREATED="1449138046285" ID="ID_1525204086" MODIFIED="1449138046286" TEXT="sterela (parking management), world sensing(fastprk &#x2013; parking)"/>
+<node CREATED="1449138046284" ID="ID_1369173209" MODIFIED="1449138046285" TEXT="pioupiou (wind sensor)"/>
+<node CREATED="1449138046283" ID="ID_410670608" MODIFIED="1449138046284" TEXT="Salesforce (soft connector with sigfox backend)"/>
+</node>
+<node CREATED="1449137927719" ID="ID_1642071459" MODIFIED="1449137929153" TEXT="OTHER">
 <node CREATED="1444978636425" ID="ID_1613570459" MODIFIED="1444978639845" TEXT="Iotera"/>
 <node CREATED="1444978640510" ID="ID_474227835" MODIFIED="1444978645548" TEXT="Smartthings"/>
+</node>
+<node CREATED="1449138204584" ID="ID_1268519347" MODIFIED="1449138209200" TEXT="Applications">
+<node CREATED="1449138210006" MODIFIED="1449138210006" TEXT="General council of the Loiret (France) &#x2013; Lysbox help to manage person coming to manage dependent persons. Deployed in 10K houses"/>
+<node CREATED="1449138210014" MODIFIED="1449138210014" TEXT="Securitas : Remote transmission of alarm &#x2013; millions of device in deployment"/>
+<node CREATED="1449138210014" MODIFIED="1449138210014" TEXT="Smockeo : Fire detection"/>
+<node CREATED="1449138210015" MODIFIED="1449138210015" TEXT="Connit : Community of communes of Pays de Gex (France) &#x2013; remote measure of consumed water meters for billing purpose."/>
+<node CREATED="1449138210017" MODIFIED="1449138210017" TEXT="Monitor trash level in compactors"/>
+<node CREATED="1449138210017" MODIFIED="1449138210017" TEXT="Monitor water"/>
+<node CREATED="1449138210018" MODIFIED="1449138210018" TEXT="Monitor light &amp; temperature inside building"/>
+<node CREATED="1449138210018" MODIFIED="1449138210018" TEXT="Bayard : detection of Fire Hydrant leaks"/>
+<node CREATED="1449138210019" MODIFIED="1449138210019" TEXT="Ocea Soft : Cold Chain Management &#x2013; track temperature, humididy, CO2 &#x2026;"/>
+</node>
 </node>
 <node CREATED="1445147119531" ID="ID_1987180602" MODIFIED="1445147372711" POSITION="right" TEXT="Traffic Patterns">
 <node CREATED="1445147126428" FOLDED="true" ID="ID_787463847" MODIFIED="1445305238674" TEXT="5867 Building Automation Routing Requirements">
