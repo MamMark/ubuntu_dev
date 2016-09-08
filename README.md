@@ -13,6 +13,7 @@ msp430:  0.2.0   includes flasher, TI toolchain 4.0.1.0
 arm_msp: 0.3.0   adds arm/msp432 toolchain and tools to msp430
          0.3.1   msp430 box 0.3.1, add CCS network installer
          0.4.0   update to 64 bit
+         0.4.1   add xds110/dfu vid/pid for usb for flashing xds110 pod
 
 ## basic
 Files for building Linux 14.04 cloud-server box image with common development libraries
