@@ -32,6 +32,7 @@ images/*
 
 # other
 *.box
+.project
 .pydevproject
 .vagrant/
 *~
@@ -41,3 +42,4 @@ TAGS
 *.class
 *.pyc
 *.tar
+*.tgz
