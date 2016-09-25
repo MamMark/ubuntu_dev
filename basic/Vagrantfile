@@ -57,7 +57,7 @@ Vagrant.configure(2) do |config|
 		config.vm.hostname = $my_name
 		config.vm.provider 'virtualbox' do |vb, override|
 			vb.name = $my_name
-			override.vm.synced_folder "~/", "/home/vagrant/home" # optional, useful for rapid development
+			override.vm.synced_folder "~/", "/home/vagrant/home"
 	        vb.customize ["modifyvm", :id, "--memory", 1024]
 		end
 	end

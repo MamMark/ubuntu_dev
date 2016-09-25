@@ -12,25 +12,5 @@
 				"checksum_type": "sha256",
 				"checksum": "c12a10bee6bfedd6625b4410fb0b1366f7f02da6cf95063a4975b867dc9c3598"
 		}]
-	},{
-		"version": "0.3.1",
-		"providers": [{
-				"name": "virtualbox",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2016-09-03.box",
-				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
-				"description_markdown": "Ubuntu 14.04 Development Environment",
-				"checksum_type": "sha256",
-				"checksum": "429aaf2663dbbd7e54d9f5ee4b9b88f177569620e42baa00568e87ea76f9ef2b"
-		}]
-	},{
-		"version": "0.2.0",
-		"providers": [{
-				"name": "virtualbox",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2016-05-11.box",
-				"description_html": "<p>Ubuntu 14.04 Development Environment</p>",
-				"description_markdown": "Ubuntu 14.04 Development Environment",
-				"checksum_type": "sha256",
-				"checksum": "f5218b63f21219beaefaf4e8c933d1cf16ec840056a19505622017c5f2ffab20"
-		}]
 	}]
 }
