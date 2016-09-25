@@ -17,8 +17,9 @@ Installation Candidates::
 
   toolchain:        https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-linux.tar.bz2
 
-  msp432 support -> msp432-gcc-support-files
-                msp432-gcc-1.0.0.1-linux-support-package-installer.run
+  msp432 support -> msp432-gcc-support-files  (MSP432 Device Support)
+    msp432-gcc-1.0.0.1-linux-support-package-installer.run.  However this is downrev (v6.3.0.1)
+    from what currently ships with CCSv6.2. (v6.3.1.1).   See ubuntu_dev/arm_msp/arm_create_ti_arm.sh.
 
   xds110_reset  http://processors.wiki.ti.com/index.php/XDS_Emulation_Software_Package
     emupack       see above
@@ -53,6 +54,7 @@ Installation:
     http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP432GCC/latest/index_FDS.html
         msp432-gcc-1.0.0.1-linux-support-package-installer.run
         msp432-gcc-support-files.zip
+        (above are back rev. use files from CCSv6.2 install)
 
 
 *** IDEs ***
