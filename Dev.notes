@@ -1,20 +1,4 @@
 
-Code Composer
-
-We use code composer for various advanced tracing, program flow, and energy trace.
-It needs to be installed manually for the local user, vagrant.  There are various
-install issues if installed as root.  It should get installed as
-/home/vagrant/ti/ccsv6.
-
-Projects and Build Handbook:
-    http://processors.wiki.ti.com/index.php/Projects_and_Build_Handbook_for_CCS
-Debug Handbook for CCS:
-    http://processors.wiki.ti.com/index.php/Debug_Handbook_for_CCS
-SWO Trace:
-    http://processors.wiki.ti.com/index.php/SWO_Trace
-SWO/CCS/Hardware Trace:
-    http://www.ti.com/lit/an/slaa674a/slaa674a.pdf
-
 XDS110:
     http://processors.wiki.ti.com/index.php/XDS110
 
@@ -53,10 +37,24 @@ What version of the xds110 firmware is supplied by the various packages:
 
 ti-arm/emulation/common/uscif/xds110/xdsdfu             (has _{jtag,swd}.dat)
         Apr 28 06:31 firmware.bin       02.03.00.01
-ti/ccsv6/ccs_base/common/uscif/xds110/xdsdfu
+ti/ccsv6/ccs_base/common/uscif/xds110/xdsdfu (6.1.3, 6.2.0.48)
         Aug  3 14:55 firmware.bin       02.03.00.02
 ti-emu/ccs_base/common/uscif/xds110/xdsdfu
         Aug  3 14:55 firmware.bin       02.03.00.02
+
+
+TI GDB proxy is gdb_agent_console:
+
+  zot (32): pwd
+  /home/cire/ti/ccsv6/ccs_base/common/uscif
+  zot (33): ./gdb_agent_console --help
+  Usage: xds_gdb_agent [-p <port>] [-f <flash>] <board-data-file>
+
+  Library dependencies:
+
+zot (39): strace ./gdb_agent_console -f MSP432 /opt/ti-arm-lsp/emulation/common/uscif/xds110_msp432_jtag.dat
+looks in ., ./tls, ./x86_64, ../../common/uscif/{.,tls,x86_64}, ../../common/bin/{...}
+         ../../DebugServer/{bin,drivers}/{...}, ../../emulation/analysis/bin/{...}
 
 
 CMSIS:
@@ -74,3 +72,25 @@ Segger:
 
     Install JLink support into CCS:
         https://www.segger.com/ti-code-composer-studio.html#ccs6
+
+
+Projects and Build Handbook:
+    http://processors.wiki.ti.com/index.php/Projects_and_Build_Handbook_for_CCS
+Debug Handbook for CCS:
+    http://processors.wiki.ti.com/index.php/Debug_Handbook_for_CCS
+SWO Trace:
+    http://processors.wiki.ti.com/index.php/SWO_Trace
+SWO/CCS/Hardware Trace:
+    http://www.ti.com/lit/an/slaa674a/slaa674a.pdf
+
+
+Code Composer
+
+Code Composer maybe used for advanced tracing, program flow, and energy trace.
+This hasn't been evaluated yet.
+
+It is also used to snag current data files from the CCS tree.  It is manually
+installed into either your home dir or into the vagrant home.  There are
+various install issues if installed as root.  It should get installed as
+/home/vagrant/ti/ccsv6.
+
