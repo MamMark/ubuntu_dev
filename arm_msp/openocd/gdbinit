@@ -1,0 +1,21 @@
+
+# 21.1 Connecting to GDB
+#
+# target remote localhost:3333
+# target extended-remote localhost:3333
+# target remote | openocd -c "gdb_port pipe; log_output openocd.log"
+# monitor help
+
+
+# Info : lm3s.cpu: hardware has 6 breakpoints, 4 watchpoints
+
+# target extended-remote :3333
+set remote hardware-breakpoint-limit 6
+set remote hardware-watchpoint-limit 4
+
+define hook-step
+mon cortex_m maskisr on
+end
+define hookpost-step
+mon cortex_m maskisr off
+end

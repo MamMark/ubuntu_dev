@@ -6,34 +6,28 @@
 
 $my_name = "u1404-dev-arm-msp"
 
-# scripts
-#
-$post_install_script = <<SCRIPT
-echo "*** ADDING groups {plugdev, dialout} to users {ubuntu, vagrant}"
-gpasswd -a `whoami` plugdev
-gpasswd -a `whoami` dialout
-gpasswd -a vagrant plugdev
-gpasswd -a vagrant dialout
-echo "*** PURGING modemmanager"
-apt-get purge -y modemmanager
-echo "*** arm/msp development environment ready for packaging"
-SCRIPT
+$install_rules = <<RULES
+echo "*** installing jtag rules into udev"
+install -v --m 0644 installs/61-jtag.rules /etc/udev/rules.d
+service udev restart
+RULES
 
 # Vagrantfile API/syntax version. Must be version 2
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-        config.vm.box = "ubuntu_dev/msp430"
-        config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-msp430.json'
+	config.vm.box = "ubuntu_dev/basic"
 	config.vm.box_version='0.4.0'
-	config.vm.box_download_checksum = '7595920a499efb4117ad3dde4a70b14df576ca0f19e7b319f7d25b887810329e'
+	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
+	config.vm.box_download_checksum = 'c12a10bee6bfedd6625b4410fb0b1366f7f02da6cf95063a4975b867dc9c3598'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 
 	config.ssh.insert_key = false
 	config.vm.provision :shell, path: "arm_tools_install.sh"
-	config.vm.provision :shell, inline: $post_install_script
-	config.vm.provision "shell", path: "../common/compact.sh"
+	config.vm.provision :file,  source: "../common/61-jtag.rules", destination: "installs/61-jtag.rules"
+	config.vm.provision :shell, inline: $install_rules
+	config.vm.provision :shell, path: "../common/compact.sh"
 
   # Enable USB access
 	usb_devs = [

@@ -1,0 +1,62 @@
+
+CMSIS-DAP needs the usb permissions changed for /dev/hidraw<n>
+
+openocd commands that interact with gdb (defaults):
+
+gdb_memory_map enable
+gdb_breakpoint_override disable   [hard|soft|disable]
+gdb_flash_program enable
+gdb_memory_map    enable
+gdb_report_data_abort disable
+gdb_target_description enable
+
+board configuration
+interface configuration
+
+script search path:
+
+the current directory,
+any search dir specified on the command line using the -s option,
+any search dir specified using the add_script_search_dir command,
+$HOME/.openocd (not on Windows),
+a directory in the OPENOCD_SCRIPTS environment variable (if set),
+the site wide script library $pkgdatadir/site and
+the OpenOCD-supplied script library $pkgdatadir/scripts.
+
+(if no filenames specified, looks for openocd.cfg)
+
+
+A target needs its TAP added to the scan chain.  ie.
+
+target create MyTarget cortex_m -chain-position mychip.cpu
+$MyTarget configure -work-area-phys 0x08000 -work-area-size 8096
+$MyTarget configure -event reset-deassert-pre { jtag_rclk 5 }
+$MyTarget configure -event reset-init { myboard_reinit }
+
+You should specify a working area if you can; typically it uses some
+on-chip SRAM. Such a working area can speed up many things, including
+bulk writes to target memory; flash operations like checking to see
+if memory needs to be erased; GDB memory checksumming; and more.
+
+Warning: On more complex chips, the work area can become inaccessible
+when application code (such as an operating system) enables or disables
+the MMU. For example, the particular MMU context used to access the virtual
+address will probably matter ... and that context might not have easy
+access to other addresses needed. At this writing, OpenOCD doesn’t have
+much MMU intelligence.
+
+It’s often very useful to define a reset-init event handler. For systems
+that are normally used with a boot loader, common tasks include updating
+clocks and initializing memory controllers. That may be needed to let you
+write the boot loader into flash, in order to “de-brick” your board; or to
+load programs into external DDR memory without having run the boot loader.
+
+
+
+target list
+target current
+target names
+target creat
+$target_name configure
+
+target types
