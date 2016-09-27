@@ -1,0 +1,42 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$box_name = "changeme-vm-64"
+
+$copy_dots = <<SCRIPT
+SRC_DIR=~/home/
+DST_DIR=~/
+
+FILES=".abbrev_defs .bash_aliases .bash_functions .gdbinit .gnupg/ \
+  .bash_login .bash_logout .bashrc .environment_bash .environment_bash.local \
+  .emacs .emacs.el .emacs_lib/ .gitconfig .mspdebug .ToDo .Xresources"
+
+echo -e "\n*** dots from $SRC_DIR -> $DST_DIR ***"
+(for i in $FILES; do echo $i; done) | rsync -aiuW --files-from=- $SRC_DIR $DST_DIR
+
+if [ -e .profile ] ; then /bin/rm .profile; fi
+
+echo -e "\n*** Ya all come back now!***"
+
+SCRIPT
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu_dev/arm_msp"
+  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.json'
+  config.vm.box_check_update = true
+
+  config.vm.hostname = $box_name
+  config.vm.define $box_name
+  config.ssh.forward_x11 = true
+  config.ssh.forward_agent = true
+#  config.vm.network "public_network", bridge: "", :mac => "magik mac"
+
+  timezone = Time.now.getlocal.zone
+
+  config.vm.provider "virtualbox" do |vb, override|
+    vb.name = $box_name
+    override.vm.synced_folder "~/", "/home/vagrant/home"
+    override.vm.provision :shell, :inline => "sudo echo \"#{timezone}\" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
+    override.vm.provision :shell, privileged: false, inline: $copy_dots
+  end
+end
