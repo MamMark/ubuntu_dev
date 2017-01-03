@@ -1,0 +1,115 @@
+#!/bin/bash
+# .environment_bash
+# Ver v4.1 20161130 zot u1404 + vm
+#   4.1 change variable setting to -v
+#       add REM_HOST
+# echo "*** environment_bash ***"
+
+if [[ -v ENV_SET ]]; then return 0; fi
+
+export BIN_ARCH CDPATH CLASSPATH
+export ENV_SET EXINIT HOST INFOPATH
+export MANPATH USER
+export TEXINPUTS BSTINPUTS BIBINPUTS
+
+#
+# if in via SSH, X pass through, Linux, and pidof available,
+# find a DBUS_SESSION so we can start X programs and have them
+# work.
+#
+gs_pid=
+if [ -x /bin/pidof ]; then
+    gs_pid=$(pidof gnome-session)
+fi
+if [[ -x /bin/pidof && ! -n $gs_pid ]]; then
+    gs_pid=$(pidof x-session-manager)
+fi
+if [[ -n ${gs_pid} && -n ${SSH_CLIENT} && "x${OSNAME}" == "xLinux" ]]; then
+    [[ -z ${SSH_AUTH_SOCK} ]] && export SSH_AUTH_SOCK=`cat /proc/$gs_pid/environ | tr '\0' '\n' | grep SSH_AUTH_SOCK | cut -d '=' -f2-`
+    [[ -z ${DBUS_SESSION_BUS_ADDRESS} ]] && export DBUS_SESSION_BUS_ADDRESS=`cat /proc/$gs_pid/environ | tr '\0' '\n' | grep DBUS_SESSION_BUS_ADDRESS | cut -d '=' -f2-`
+#   [[ -z ${XAUTHORITY} ]] && export XAUTHORITY=`cat /proc/$gs_pid/environ | tr '\0' '\n' | grep XAUTHORITY | cut -d '=' -f2-`
+fi
+
+# if host hasn't already been set, set it to the host (w/o domain)
+if [[ ! -v HOST ]] ; then
+    if [ -x /bin/hostname ]; then		# Linux/HP-UX/sunos4.x boxes
+	hostnamecmd=/bin/hostname
+    else
+        hostnamecmd="uname -n"			# nodename
+    fi
+fi
+HOST=${HOST:-`$hostnamecmd | sed -e 's/\\..*//'`}
+unset hostnamecmd
+
+if [[ ! -v REM_HOST ]]; then
+    if [[ -v SSH_CLIENT ]]; then
+        REM_HOST=`dig +short -x ${SSH_CLIENT%% *} | cut -d"." -f1`
+    fi
+fi
+
+if [[ ! -v USER ]]; then
+    USER=`id | sed -e 's/[^=]*=[0-9]*(\([^)]*\).*/\1/'`
+fi
+
+if [[ -x /bin/arch || -x /usr/bin/arch ]] ; then
+    BIN_ARCH=${BIN_ARCH:-`arch`}
+fi
+
+pathset() {
+    while [ $# -gt 0 -a ! -d "$1" ]; do shift ; done
+    if [ $# -gt 0 ]; then
+      if [ -d $1 ]; then t=$1; shift; fi
+      for d in $*; do if [ -d $d ]; then t=$t:$d; fi; done
+    fi
+    echo $t
+    unset d t
+}
+
+pathappend() {
+    t=$1; shift; for d in $*; do if [ -d $d ]; then t=$t:$d; fi; done
+    echo $t
+    unset d t
+}
+
+pathprefix() {
+    t=$1; shift; for d in $*; do if [ -d $d ]; then t=$t:$d; fi; done
+    echo $t
+    unset d t
+}
+
+PATH=`pathset $HOME/.bin/mspgcc/bin $HOME/.bin \
+    /usr/gcc-arm-none-eabi-4_9-2016q4/bin \
+    /usr/local/bin /usr/local/sbin \
+    /usr/bin /usr/sbin /bin /sbin `;
+
+MANPATH=`pathset \
+    /usr/gcc-arm-none-eabi-4_9-2016q4/share/doc/gcc-arm-none-eabi/man \
+    /usr/local/man /usr/local/share/man \
+    /usr/man       /usr/share/man `
+
+INFOPATH=`pathset ~/.emacs.d/info \
+    /usr/gcc-arm-none-eabi-4_9-2016q4/share/doc/gcc-arm-none-eabi/info \
+    /usr/local/info /usr/local/share/info \
+    /usr/info       /usr/share/info `
+
+export CDPATH=.:..:$HOME
+
+export EXINIT='set aw ai ic nows sm'	# set vi (ex) options
+export XENVIRONMENT='~/.Xdefaults'
+if [ -x /usr/bin/less ]; then 
+    export PAGER=${PAGER:-/usr/bin/less}
+fi
+
+export RSYNC_RSH=ssh
+
+export DEBFULLNAME="Eric Decker"
+export DEBEMAIL="cire831@gmail.com"
+
+# ensure that we don't need to reset the environment for any sub-shells
+unset addsw addswman
+
+export GPGKEY=34EC655A
+
+if [ -r ~/.environment_bash.local ]; then . ~/.environment_bash.local; fi
+
+ENV_SET=true

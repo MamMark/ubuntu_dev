@@ -1,0 +1,11 @@
+*.[oa]
+*~
+#*#
+.#*
+TAGS
+
+# Compiled
+*.elc
+
+# Packaging
+.cask
