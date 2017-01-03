@@ -11,8 +11,10 @@ function print_green {
 
 print_green 'Clean Apt'
 apt-get -y autoremove
-aptitude clean
-aptitude autoclean
+apt-get -y clean
+apt-get -y autoclean
+#aptitude clean
+#aptitude autoclean
 
 print_green 'Cleanup bash history'
 unset HISTFILE
@@ -41,8 +43,8 @@ unset HISTFILE
 #mkswap -f $swappart
 #swapon $swappart
 
-print_green 'umount vagrant'
-umount /vagrant
+#print_green 'umount vagrant'
+#umount /vagrant
 
 print_green 'Zero out disk'
 dd if=/dev/zero of=/EMPTY bs=1M

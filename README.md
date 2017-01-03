@@ -1,7 +1,8 @@
 # ubuntu_dev
 
 ## basic
-Files for building Linux 14.04 cloud-server box image with common development libraries
+Files for building Linux from bento/ubuntu-16.04 box image to include libraries needed for project
+(note: ubuntu/xenial64 and cloud-images.ubuntu.com/xenial images were not functional as of Dec 1st, 2016)
 
 ## msp430
 Files for building TI-MSP430 software, including Vagrantfiles and other scripts
@@ -81,19 +82,19 @@ config.vm.box_check_update = true
 		"version": "0.1.0",
 		"status": "active",
 		"providers": [{
-				"name": "virtualbox",
-				"description_html": "<p>Dev Environment</p>",
-				"description_markdown": "Dev Environment",
-				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.box",
-				"checksum_type": "sha256",
-				"checksum": "5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606"
+			"name": "virtualbox",
+			"description_html": "<p>Dev Environment</p>",
+			"description_markdown": "Dev Environment",
+			"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.box",
+			"checksum_type": "sha256",
+			"checksum": "5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606"
 		},{
-        "version": "0",
-        "providers": [{
-                "name": "virtualbox",
-                "url": "https://www.dropbox.com/s/15q9uf88l2n6j7q/ubbuntu_dev_basic_2015-10-22.box"
-                "checksum_type": "sha256",
-                "checksum": "9d6684c82c1cfa8ba4304f428c4918f956869b1eca70f5b5b08ddd8cdb7c1499"
+                "version": "0",
+                "providers": [{
+        	        "name": "virtualbox",
+                	"url": "https://www.dropbox.com/s/15q9uf88l2n6j7q/ubbuntu_dev_basic_2015-10-22.box"
+                	"checksum_type": "sha256",
+                	"checksum": "9d6684c82c1cfa8ba4304f428c4918f956869b1eca70f5b5b08ddd8cdb7c1499"
         }]
     }]
 }
