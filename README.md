@@ -1,31 +1,46 @@
-# ubuntu_dev
+# ubuntu_dev/ - Contains Vagrantfiles for building Linux VM machines for software development
 
-## basic
-Files for building Linux from bento/ubuntu-16.04 box image to include libraries needed for project
-(note: ubuntu/xenial64 and cloud-images.ubuntu.com/xenial images were not functional as of Dec 1st, 2016)
+# The following directories build machines
 
-## msp430
-Files for building TI-MSP430 software, including Vagrantfiles and other scripts
+## basic/
+### for building Linux from bento/ubuntu-16.04 64bit box image to include libraries needed
+### for project (note: ubuntu/xenial64 and cloud-images.ubuntu.com/xenial images were not functional
+### as of Dec 1st, 2016)
 
-## arm_msp
-Files for building TI-MSP432 (ARM Cortex-M4F) software.
+## msp430/
+### for building TI-MSP430 software, including Vagrantfiles and other scripts
 
-## common
-Common scripts and other shared files
+## arm_msp/
+### for building TI-MSP432 (ARM Cortex-M4F) software.
 
-## mammark
-files for test mammal tagging (marking) application
+## common/
+### Common scripts and other shared files
+
+## mammark/
+### for test mammal tagging (marking) application
 
 
 #######################################################################################################
-##
-## Managing VAGRANT BOXES
-##
-## COMMAND to install a previously built and published box
+#
+# General Notes
+#
+
+## Note that when using Apple MAC OSX for host machine, care needs to be taken with file names
+## since MAC has case-insensitive naming but Linux is case-sensative
+
+## Published vagrant boxes can be found on http://tinyprod.net/boxes/
+
+## COMMAND to install a previously built and published box (example)
 
 curl -O -L "http://tinyprod.net/boxes/ubuntu_dev-basic_2016-08-30.box"
 vagrant box add ubuntu_dev/basic ubuntu_dev-basic_2016-08-30.box --force
 
+
+#######################################################################################################
+#
+# Managing VAGRANT BOXES
+#
+## provides instructions on how to build and publish boxes for use by others.
 
 ## INSTRUCTIONS to make the Vagrant box. 
 ##  Other Vagrantfiles can use resulting box as their starting point.
@@ -100,18 +115,12 @@ config.vm.box_check_update = true
 }
 
 
-*** Make sure that VirtualBox Guest Additions are up to date.
-    from: http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
 
-same directory as basic/Vagrantfile:
-
-$ vagrant plugin install vagrant-vbguest
-
-then build basic.
+## then build basic.
 
 $ vagrant up
 
-will now check for correct VirtualBox Guest Additions and install if out of sync.
+## this will check for correct VirtualBox Guest Additions and install if out of sync.
 
 
 
@@ -122,6 +131,7 @@ basic:   0.2.0   updated to current VBox Guest additions
                  update packages for CCS dependencies
          0.3.1   add firefox for CCS
          0.4.0   update to 64 bit
+         0.4.1   16.04 64bit using bento box
 
 msp430:  0.2.0   includes flasher, TI toolchain 4.0.1.0
          0.3.0   on basic 0.3.0
