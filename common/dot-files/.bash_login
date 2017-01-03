@@ -1,0 +1,63 @@
+# .bash_login
+# Ver 4.1 20161125 zot u1404 + vm
+#    add merge Xresources on the way in
+# echo "*** bash_login ***"
+
+export USERNAME=""
+export PATH
+export OSNAME=`uname -s`
+export IGNOREEOF=4
+
+if [ -e /vagrant ] ; then
+  export VM=true;
+fi
+
+if [[ -v DISPLAY ]]; then xrdb -merge ~/.Xresources; fi
+if [ "z$OSNAME" = "zDarwin" ] ; then
+  if [ -z $VM ] ; then
+    stty erase ^\? kill ^x intr ^c tostop werase '^W' reprint '^R' discard '^O'
+    stty lnext '^V' susp '^Z'
+  fi
+# if [ "z$TERM" = "zlinux" ] ; then export TERM=vt100 ; fi
+  if [ "z$TERM" = "zlinux" -o "z$TERM" = "zxterm-color" -o "z$TERM" = "zxterm" ] ;
+  then export TERM=vt100 ; fi
+else
+  if [ -z $VM ] ; then
+    # Linux, ... , what else?
+    stty erase ^\? kill ^x intr ^c tostop werase '^W' cr0 rprnt '^R' flush '^O'
+    stty lnext '^V' susp '^Z'
+  fi
+fi
+
+if [ -f $HOME/.bashrc ] ; then source $HOME/.bashrc; fi
+
+#
+# Emacs shell windows use "dumb" as the TERM type.   If reseting it to vt220 screws
+# things up then leave "dumb" the same if under emacs.
+#
+if [ "z$TERM" != "z" ]; then
+    if [ "z$TERM" = "zsu" -o "z$TERM" = "znetwork" -o "z$TERM" = "zdialup" -o "z$TERM" = "zdumb" ]; then
+	TERM=
+    fi
+fi
+if [ "z$TERM" = "z" ] ; then
+  if [ -z $VM ] ; then
+    eval `tset -Q -s -I vt220`
+  fi
+elif [ $TERM = dec-vt100 -o $TERM = dec-vt220 -o $TERM = dec-vt240 ] ; then
+  if [ -z $VM ] ; then
+    eval `tset -I -s vt220`
+  fi
+fi
+
+umask	022			# no write others, group
+alias	bye=logout 
+alias	yow=logout
+if [ -r .bash_login.local ]; then . .bash_login.local; fi
+
+if [ -z $VM ] ; then
+  echo -e "\nUser: $USER ($UID), Term: $TERM"
+  if [ "z$DISPLAY" != "z" ]; then echo Display: $DISPLAY; fi
+  ssh-add -l
+  echo ""
+fi
