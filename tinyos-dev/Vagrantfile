@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 $box_name = "arm-dev-64"
-#$box_name = "user-vm-32"
 
 $modify_bashrc = <<SCRIPT
 
@@ -36,14 +35,15 @@ if [ ! -e $DEV_ROOT ] ; then
     cd ~
 fi
 
-cd $TINYOS_ROOT_DIR/apps/Blink
-make debugopt telosb
-make debugopt exp5438_gps
+#cd $TINYOS_ROOT_DIR/apps/Blink
+#make debugopt telosb
+#make debugopt exp5438_gps
 SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu_dev/arm_msp"
-  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.json'
+  config.vm.box_url = 'ubuntu_dev-arm_msp.json'
+#  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.json'
   config.vm.box_check_update = true
 
   config.vm.define $box_name

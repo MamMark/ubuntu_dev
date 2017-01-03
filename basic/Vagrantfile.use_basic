@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 #
-# use_basic: basically use basic to instantiate a basic vm.
+# use_basic: this is an example to use basic to instantiate a basic vm.
 # from: ubuntu_dev/basic/Vagrantfile.use_basic
 #
 

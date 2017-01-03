@@ -4,7 +4,7 @@
 #	ubuntu_dev/arm_msp
 #
 
-$my_name = "u1404-dev-arm-msp"
+$my_name = "u1604-dev-arm-msp"
 
 $install_rules = <<RULES
 echo "*** installing jtag rules into udev"
@@ -17,9 +17,10 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.box = "ubuntu_dev/basic"
-	config.vm.box_version='0.4.0'
-	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
-	config.vm.box_download_checksum = 'c12a10bee6bfedd6625b4410fb0b1366f7f02da6cf95063a4975b867dc9c3598'
+	config.vm.box_version='0.4.1'
+	config.vm.box_url = 'file:///Users/danome/ubuntu_dev/basic/ubuntu_dev-basic.json'
+#	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
+	config.vm.box_download_checksum = 'ba8c3bc157bb777601a66aac8683ee8ca782de2749e146d1633561426583498e'
 	config.vm.box_download_checksum_type = 'sha256'
 	config.vm.box_check_update = true
 
@@ -50,7 +51,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			vb.customize ["modifyvm", :id, "--memory", 2048]
 			vb.customize ['modifyvm', :id, '--usb', 'on']
 			usb_devs.each do |dev|
-				vb.customize ['usbfilter', 'add', '0', '--target', :id, '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
+			  vb.customize ['usbfilter', 'add', '0', '--target', :id,
+                                        '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
 			end
 		end
 	end
