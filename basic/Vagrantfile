@@ -2,7 +2,7 @@
 #
 #	ubuntu_dev/basic
 #
-$my_name = "u1604-dev-basic"
+$my_name = "u1604-64-dev-basic"
 
 # super_script
 #
@@ -33,7 +33,7 @@ SSCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box = 'bento/ubuntu-16.04'   # see https://github.com/chef/bento for details on construction
-
+  
   #	config.ssh.insert_key = false
 
   config.vm.provision 'shell', inline: $linux_script
