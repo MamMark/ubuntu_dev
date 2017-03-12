@@ -21,6 +21,13 @@ Red LP:   0451/bef3 normal XDS110 (02.02.05.01) with CMSIS-DAP, sn M4321005
       dfu 1cbe/00ff Tiva Device Firmware Update
 
 
+*** NXP LPC Link 2
+
+LPC4370dfeT100 - main processor
+lpcscript 1.8.0_723 linux
+
+
+
 Install of msp432-gcc-1.0.0.1-linux-support-package into /opt/ti-arm has binaries
 that need execute permission to run.
 

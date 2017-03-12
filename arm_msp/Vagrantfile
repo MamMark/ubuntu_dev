@@ -34,6 +34,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		['0x0451', '0xbef3', 'xds110, msp432 LP'],
 		['0x1cbe', '0x00ff', 'xds110, dfu'],
 		['0x1366', '0x0101', 'segger j-link'],
+		['0x1fc9', '0x0083', 'lpcscript link2'],
+		['0x1fc9', '0x000c', 'lpc link2 dfu'],
 		['0x2047', '0x0010', 'msp-fet430uif (v3)'],
 		['0x2047', '0x0014', 'msp-fet'],
 		['0x2047', '0x0204', 'msp-fet fw update'],
