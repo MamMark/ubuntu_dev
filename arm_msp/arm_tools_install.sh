@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 
 #
+# Update
+#
+# ti-arm tarball
+# LSP to 1.1.0.1
+# EMU to 6.0.579.0
+# Jlink
+# create tools dir with dbgjtag, xds110reset, xdsdfu, and firmware.bin
+# openocd
+# kill msp_flasher
+#
+
+#
 # Installs:
 # arm toolchain: (gcc-arm-none-eabi-4_9-2015q3)
 # CCS (code composer): web installer

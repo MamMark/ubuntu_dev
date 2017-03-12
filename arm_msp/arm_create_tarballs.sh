@@ -3,6 +3,17 @@
 HOME_EXTRA=
 
 #
+# FIXME: Update
+#
+# openocd to release 0.10.0
+# build new ti-arm tarball based on ccsv7
+# dir structure revisit.  /opt/ti now has /opt/ti/ti-arm etc.
+#    ccsv7 in /opt/ti/ccs/ccsv7
+# still want driverlib?
+# replace with simplelink?
+#
+
+#
 # this script creates:
 #
 # openocd tarball
