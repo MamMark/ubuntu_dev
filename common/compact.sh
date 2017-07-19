@@ -43,9 +43,8 @@ unset HISTFILE
 #mkswap -f $swappart
 #swapon $swappart
 
-print_green 'clean up /vagrant automounted directory'
+#print_green 'clean up /vagrant automounted directory'
 #umount /vagrant
-rm -rf /vagrant/*
 
 print_green 'clean up /tmp automounted directory'
 rm -rf /tmp/*
