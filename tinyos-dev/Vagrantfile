@@ -1,32 +1,43 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$box_name = "arm-dev-64"
+$box_name = "arm-dev-tinyos"
+
+$set_date = <<SCRIPT
+  export area=America
+  export zone=Los_Angeles
+  export path=/usr/share/zoneinfo/$area/$zone
+  echo $path
+  echo "$area/$zone" > /tmp/timezone
+  cp -f /tmp/timezone /etc/timezone
+  cp -f $path /etc/localtime
+SCRIPT
 
 $modify_bashrc = <<SCRIPT
-
 cd ~
 if [ ! -e ~/.bashrc_env ] ; then
-cat >> ~/.bashrc <<EOF
-. ~/.bashrc_env
+  cat >> ~/.bashrc <<EOF
+  . ~/.bashrc_env
 EOF
-
 cat > ~/.bashrc_env <<EOF
 if [ -z \\\$TINYOS_ENV_SET ] ; then
-	export NEW_HOME=/home/vagrant
-	export DEV_ROOT=\\\$NEW_HOME/msp432dev
-	export MM_ROOT=\\\$DEV_ROOT/mm
-	export TINYOS_ROOT_DIR=\\\$DEV_ROOT/prod
-	export TINYOS_ROOT_DIR_ADDITIONAL=\\\$MM_ROOT:\\\$TINYOS_ROOT_DIR_ADDITIONAL
-	export CLASSPATH=.:\\\$TINYOS_ROOT_DIR/support/sdk/java/tinyos.jar
-	export PYTHONPATH=\\\$TINYOS_ROOT_DIR/support/sdk/python:\\\$PYTHONPATH
-	export PYTHONPATH=/usr/local/lib/python3.4/dist-packages:\\\$PYTHONPATH
-	export TINYOS_ENV_SET="true"
+  export NEW_HOME=/home/vagrant
+  export DEV_ROOT=\\\$NEW_HOME/msp-dev
+  export MM_ROOT=\\\$DEV_ROOT/mm
+  export TINYOS_ROOT_DIR=\\\$DEV_ROOT/prod
+  export TINYOS_ROOT_DIR_ADDITIONAL=\\\$MM_ROOT:\\\$TINYOS_ROOT_DIR_ADDITIONAL
+  export CLASSPATH=.:\\\$TINYOS_ROOT_DIR/support/sdk/java/tinyos.jar
+  export PYTHONPATH=\\\$TINYOS_ROOT_DIR/support/sdk/python:\\\$PYTHONPATH
+  export PYTHONPATH=/usr/local/lib/python3.4/dist-packages:\\\$PYTHONPATH
+  export TINYOS_ENV_SET="true"
+  export PATH=/usr/gcc-arm-none-eabi-4_9-2015q3/bin/:$PATH
 fi
 EOF
 fi
-
 . ~/.bashrc_env
+SCRIPT
+
+$tinyos_dev = <<SCRIPT
 if [ ! -e $DEV_ROOT ] ; then
     mkdir $DEV_ROOT
     cd $DEV_ROOT
@@ -34,15 +45,13 @@ if [ ! -e $DEV_ROOT ] ; then
     git clone -v git://github.com/MamMark/mm.git
     cd ~
 fi
-
-#cd $TINYOS_ROOT_DIR/apps/Blink
-#make debugopt telosb
-#make debugopt exp5438_gps
+#  cd $TINYOS_ROOT_DIR/apps/Blink
+#  make debugopt msp432
 SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu_dev/arm_msp"
-  config.vm.box_url = 'ubuntu_dev-arm_msp.json'
+  config.vm.box_url = 'file:////Users/danome/Data/ubuntu_dev/arm_msp/ubuntu_dev-arm_msp.json'
 #  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.json'
   config.vm.box_check_update = true
 

@@ -25,15 +25,56 @@
 # General Notes
 #
 
-## Note that when using Apple MAC OSX for host machine, care needs to be taken with file names
-## since MAC has case-insensitive naming but Linux is case-sensative
+## Add these Vagrant plugins
+
+vagrant plugin install vagrant-vbguest
+
 
 ## Published vagrant boxes can be found on http://tinyprod.net/boxes/
 
-## COMMAND to install a previously built and published box (example)
+## Example on how to install a previously built and published box
 
 curl -O -L "http://tinyprod.net/boxes/ubuntu_dev-basic_2016-08-30.box"
 vagrant box add ubuntu_dev/basic ubuntu_dev-basic_2016-08-30.box --force
+
+
+## When using Apple MAC OSX for host machine, care needs to be taken with file names
+## since MAC has case-insensitive naming but Linux is case-sensative
+
+## user must have account on tinyprod.net that has permission to upload files
+
+ssh danome@tinyprod.net -p 23456
+
+
+## Global provisioning statements are added to your ~/.vagrant.d/Vagrantfile
+##   see https://github.com/geerlingguy/drupal-vm/issues/681 for bogus tty error msg workaround
+
+Vagrant.configure("2") do |config|
+  config.vm.boot_timeout = 700
+  # Fixes "stdin: is not a tty" and "mesg: ttyname failed : Inappropriate ioctl for device" messages --> mitchellh/vagrant#1673
+  device.vm.provision :shell , inline: "(grep -q 'mesg n' /root/.profile && sed -i '/mesg n/d' /root/.profile && echo 'Ignore the previous error, fixing this now...') || exit 0;"
+  # ... other stuff
+end
+
+
+## UTC is the default datetime for all boxes.
+## User should explicitly set date time in their Vagrantfile like this:
+
+$set_date = <<SCRIPT
+  export area=America
+  export zone=Los_Angeles
+  export path=/usr/share/zoneinfo/$area/$zone
+  echo $path
+  echo "$area/$zone" > /tmp/timezone
+  cp -f /tmp/timezone /etc/timezone
+  cp -f $path /etc/localtime
+SCRIPT
+## and then add something like this:
+  config.vm.provider "virtualbox" do |vb, override|
+    override.vm.provision :shell, inline: $set_date
+  end
+
+
 
 
 #######################################################################################################
@@ -49,8 +90,11 @@ vagrant box add ubuntu_dev/basic ubuntu_dev-basic_2016-08-30.box --force
 export INAME=basic
 export ILIST='Vagrantfile,../README.md'
 
-## variables for boxing ubuntu_dev-msp430 or ubuntu_dev-arm_msp
+## variables for ubuntu_dev-msp430
 export INAME=msp430
+export ILIST='Vagrantfile'
+
+## Variables for ubuntu_dev-arm_msp
 export INAME=arm_msp
 export ILIST='Vagrantfile'
 
@@ -98,8 +142,8 @@ config.vm.box_check_update = true
 		"status": "active",
 		"providers": [{
 			"name": "virtualbox",
-			"description_html": "<p>Dev Environment</p>",
-			"description_markdown": "Dev Environment",
+			"description_html": "<p>Dev Environment description</p>",
+			"description_markdown": "Dev Environment description",
 			"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2015-10-28.box",
 			"checksum_type": "sha256",
 			"checksum": "5c9d399f2fe9694a398e121a77af5febc9c54626fec5c9fde35c29c82c88f606"
@@ -114,9 +158,13 @@ config.vm.box_check_update = true
     }]
 }
 
+## replace this line to use local file
+
+"url": "file:///Users/danome/Downloads/ubuntu_dev-basic.2017-01-04.box"
 
 
-## then build basic.
+
+## then build and run basic.
 
 $ vagrant up
 

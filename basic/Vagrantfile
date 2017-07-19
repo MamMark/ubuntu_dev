@@ -4,7 +4,7 @@
 #
 $my_name = "u1604-64-dev-basic"
 
-# super_script
+# linux_script - add/update/upgrade linux packages
 #
 $linux_script = <<SSCRIPT
 export DEBIAN_FRONTEND=noninteractive
@@ -15,26 +15,25 @@ apt-get update
 echo "*** UPGRADING distribution"
 apt-get dist-upgrade -qy \
 	-o Dpkg::Options::="--force-confdef" \
-	-o Dpkg::Options::="--force-confold" 
+	-o Dpkg::Options::="--force-confold"
 
-MYLIBS="build-essential gitk python-dev python-serial python3-serial default-jdk libusb-dev libreadline-dev linux-headers-generic linux-image-extra-virtual linux-firmware emacs emacs24-el git-el tree unzip"
-echo "*** INSTALLING " + MYLIBS
+MYLIBS="build-essential gitk python-dev python-serial python3-serial default-jdk libusb-dev libreadline-dev linux-headers-generic linux-image-extra-virtual linux-firmware emacs emacs24-el git-el tree unzip stow automake autoconf libtool libc6-dev ntp"
+echo "*** INSTALLING " + $MYLIBS
 apt-get install -qy -y $MYLIBS
 
-#echo "*** INSTALLING CCS prereqs"
-#dpkg --add-architecture i386
-#apt-get install -qy -y \
-#        libc6:i386 libx11-6:i386 libasound2:i386 libatk1.0-0:i386 libcairo2:i386 libcups2:i386 libdbus-glib-1-2:i386 libgconf-2-4:i386 libgdk-pixbuf2.0-0:i386 libgtk-3-0:i386 libice6:i386 libncurses5:i386 libsm6:i386 liborbit2:i386 libudev1:i386 libusb-0.1-4:i386 libstdc++6:i386 libxt6:i386 libxtst6:i386 libgnomeui-0:i386 libusb-1.0-0-dev:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 unzip
+MY32LIBS="libc6:i386 libx11-6:i386 libasound2:i386 libatk1.0-0:i386 libcairo2:i386 libcups2:i386 libdbus-glib-1-2:i386 libgconf-2-4:i386 libgdk-pixbuf2.0-0:i386 libgtk-3-0:i386 libice6:i386 libncurses5:i386 libsm6:i386 liborbit2:i386 libudev1:i386 libusb-0.1-4:i386 libstdc++6:i386 libxt6:i386 libxtst6:i386 libgnomeui-0:i386 libusb-1.0-0-dev:i386 libcanberra-gtk-module:i386 gtk2-engines-murrine:i386 unzip"
+echo "*** INSTALLING 32bit libraries" + $MY32LIBS
+dpkg --add-architecture i386
+apt-get install -qy -y $MY32LIBS
 
-#echo "*** ? stow automake autoconf libtool libc6-dev"
 #echo "*** ? git-core git-daemon-run git-doc git-email git-gui gitmagic"
 #echo "*** ? openssh-client openssh-server vim aptitude"
 SSCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box = 'bento/ubuntu-16.04'   # see https://github.com/chef/bento for details on construction
-  
-  #	config.ssh.insert_key = false
+
+  # config.ssh.insert_key = false
 
   config.vm.provision 'shell', inline: $linux_script
   config.vm.provision "shell", path: "../common/compact.sh"

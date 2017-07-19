@@ -4,56 +4,78 @@
 #	ubuntu_dev/arm_msp
 #
 
-$my_name = "u1604-dev-arm-msp"
+$my_name = "dev-arm-msp"
 
+# scripts
+#
 $install_rules = <<RULES
 echo "*** installing jtag rules into udev"
 install -v --m 0644 installs/61-jtag.rules /etc/udev/rules.d
 service udev restart
 RULES
 
+$post_install_script = <<SCRIPT
+echo "*** ADDING groups {plugdev, dialout} to users {ubuntu, vagrant}"
+gpasswd -a `whoami` plugdev
+gpasswd -a `whoami` dialout
+gpasswd -a vagrant plugdev
+gpasswd -a vagrant dialout
+echo "*** PURGING modemmanager"
+apt-get purge -y modemmanager
+echo "*** msp430 development environment ready for packaging"
+SCRIPT
+
+# end of scripts
+#
+
 # Vagrantfile API/syntax version. Must be version 2
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-	config.vm.box = "ubuntu_dev/basic"
-	config.vm.box_version='0.4.1'
-	config.vm.box_url = 'file:///Users/danome/ubuntu_dev/basic/ubuntu_dev-basic.json'
-#	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
-	config.vm.box_download_checksum = 'ba8c3bc157bb777601a66aac8683ee8ca782de2749e146d1633561426583498e'
-	config.vm.box_download_checksum_type = 'sha256'
-	config.vm.box_check_update = true
+  config.vm.box = "ubuntu_dev/basic"
+  config.vm.box_version='0.4.1'
+  config.vm.box_url = 'file:///Users/danome/Data/ubuntu_dev/basic/ubuntu_dev-basic.json'
+  #	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
+  config.vm.box_download_checksum = 'ba8c3bc157bb777601a66aac8683ee8ca782de2749e146d1633561426583498e'
+  config.vm.box_download_checksum_type = 'sha256'
+  config.vm.box_check_update = true
 
-	config.ssh.insert_key = false
-	config.vm.provision :shell, path: "arm_tools_install.sh"
-	config.vm.provision :file,  source: "../common/61-jtag.rules", destination: "installs/61-jtag.rules"
-	config.vm.provision :shell, inline: $install_rules
-	config.vm.provision :shell, path: "../common/compact.sh"
+  # config.ssh.insert_key = false
+
+  # install msp430 tools
+  config.vm.provision "file", source: "../common/flasher.tgz", destination: "./flasher.tgz"
+  config.vm.provision :shell, path: "../common/mspgcc_ti_tools_install.sh"
+  config.vm.provision :shell, path: "../common/mspgcc46_tools_install.sh"
+  config.vm.provision :shell, inline: $post_install_script
+  # install msp432 tools
+  config.vm.provision :shell, path: "../common/arm_tools_install.sh"
+  config.vm.provision :file,  source: "../common/61-jtag.rules", destination: "installs/61-jtag.rules"
+  config.vm.provision :shell, inline: $install_rules
+  # prepare for packaging the box
+  config.vm.provision :shell, path: "../common/compact.sh"
 
   # Enable USB access
-	usb_devs = [
-		['0x0451', '0xbef3', 'xds110, msp432 LP'],
-		['0x1cbe', '0x00ff', 'xds110, dfu'],
-		['0x1366', '0x0101', 'segger j-link'],
-		['0x1fc9', '0x0083', 'lpcscript link2'],
-		['0x1fc9', '0x000c', 'lpc link2 dfu'],
-		['0x2047', '0x0010', 'msp-fet430uif (v3)'],
-		['0x2047', '0x0014', 'msp-fet'],
-		['0x2047', '0x0204', 'msp-fet fw update'],
-	]
+  usb_devs = [
+    ['0x0451', '0xbef3', 'xds110, msp432 LP'],
+    ['0x1cbe', '0x00ff', 'xds110, dfu'],
+    ['0x1366', '0x0101', 'segger j-link'],
+    ['0x2047', '0x0010', 'msp-fet430uif (v3)'],
+    ['0x2047', '0x0014', 'msp-fet'],
+    ['0x2047', '0x0204', 'msp-fet fw update'],
+  ]
 
-	config.vm.define $my_name do |config|
-		config.vm.hostname = $my_name
-		config.vm.provider "virtualbox" do |vb, override|
-			vb.name = $my_name
-			override.vm.synced_folder "~/", "/home/vagrant/home"
+  config.vm.define $my_name do |config|
+    config.vm.hostname = $my_name
+    config.vm.provider "virtualbox" do |vb, override|
+      vb.name = $my_name
+      override.vm.synced_folder "~/", "/home/vagrant/home"
 
-			vb.customize ["modifyvm", :id, "--memory", 2048]
-			vb.customize ['modifyvm', :id, '--usb', 'on']
-			usb_devs.each do |dev|
-			  vb.customize ['usbfilter', 'add', '0', '--target', :id,
-                                        '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
-			end
-		end
-	end
+      vb.customize ["modifyvm", :id, "--memory", 2048]
+      vb.customize ['modifyvm', :id, '--usb', 'on']
+      usb_devs.each do |dev|
+	vb.customize ['usbfilter', 'add', '0', '--target', :id,
+                      '--vendorid', dev[0], '--productid', dev[1], '--name', dev[2]]
+      end
+    end
+  end
 end
