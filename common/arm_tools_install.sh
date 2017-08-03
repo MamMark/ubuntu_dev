@@ -23,22 +23,23 @@ fi
 cd installs
 chown -R vagrant:vagrant .
 
+echo "***"
 echo "*** Downloading ..."
 wget -nv -O ti_emupack ${TI_EMU}
 wget -nv -O jlink.deb ${JLINK_DEB}
 
+echo "*** Downloading ARM toolchain"
+wget -nv -O gcc-arm-none-eabi.tar.bz2 $ARM_TOOLS_URL
 echo "*** Installing ARM toolchain"
 tar xf /home/vagrant/installs/gcc-arm-none-eabi.tar.bz2 -C /usr
 
-echo "*** Installing msp432 gcc support files"
-chmod +x msp432-gcc-lsp ti_emupack
-./msp432-gcc-lsp --mode unattended --prefix /opt/ti-arm-lsp
+echo "*** Installing msp432 emupack"
+chmod +x ti_emupack
 ./ti_emupack --mode unattended --prefix /opt/ti-emu
-tar xf msp432-ti-arm.tgz -C /opt
+
 
 echo "***"
-echo "*** Downloading Code Compactor Net Install"
-wget -nv http://tinyprod.net/dev-archive/CCS_web_linux.tar.gz
+apt-get update
 
 
 echo "***"
