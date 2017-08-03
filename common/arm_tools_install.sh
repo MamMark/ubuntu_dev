@@ -40,8 +40,13 @@ chmod +x ti_emupack
 export DEBIAN_FRONTEND=noninteractive
 
 echo "***"
+echo "*** Adding TinyProd signing key"
+wget -qO - http://tinyprod.net/repos/debian/tinyprod.key | apt-key add -
+echo "deb http://tinyprod.net/repos/debian wheezy main" >> /etc/apt/sources.list.d/tinyprod-debian.list
 apt-get update
 
+echo "*** Installing required tinyos tools"
+apt-get install -y -V tinyos-tools-devel nesc
 
 echo "***"
 echo "*** Installing JLink (Segger)"
