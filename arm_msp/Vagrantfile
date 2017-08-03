@@ -22,7 +22,7 @@ gpasswd -a vagrant plugdev
 gpasswd -a vagrant dialout
 echo "*** PURGING modemmanager"
 apt-get purge -y modemmanager
-echo "*** msp430 development environment ready for packaging"
+echo "*** ARM/msp432 development environment ready for packaging"
 SCRIPT
 
 # end of scripts
@@ -46,11 +46,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "file", source: "../common/flasher.tgz", destination: "./flasher.tgz"
   config.vm.provision :shell, path: "../common/mspgcc_ti_tools_install.sh"
   config.vm.provision :shell, path: "../common/mspgcc46_tools_install.sh"
-  config.vm.provision :shell, inline: $post_install_script
   # install msp432 tools
   config.vm.provision :shell, path: "../common/arm_tools_install.sh"
   config.vm.provision :file,  source: "../common/61-jtag.rules", destination: "installs/61-jtag.rules"
   config.vm.provision :shell, inline: $install_rules
+  config.vm.provision :shell, inline: $post_install_script
+
   # prepare for packaging the box
   config.vm.provision :shell, path: "../common/compact.sh"
 
