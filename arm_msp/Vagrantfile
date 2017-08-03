@@ -42,6 +42,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # config.ssh.insert_key = false
 
+  # install independent tools
+  config.vm.provision :shell, path: "../common/ind_tools_script.sh"
+
   # install msp432 tools
   config.vm.provision :shell, path: "../common/arm_tools_install.sh"
   config.vm.provision :file,  source: "../common/61-jtag.rules", destination: "installs/61-jtag.rules"
