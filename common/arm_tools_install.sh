@@ -21,6 +21,7 @@ if [[ ! -d installs ]] ; then
   mkdir installs
 fi
 cd installs
+chown -R vagrant:vagrant .
 
 echo "*** Downloading ..."
 wget -nv -O ti_emupack ${TI_EMU}
@@ -39,7 +40,6 @@ echo "***"
 echo "*** Downloading Code Compactor Net Install"
 wget -nv http://tinyprod.net/dev-archive/CCS_web_linux.tar.gz
 
-chown -R vagrant:vagrant .
 
 echo "***"
 echo "*** Installing JLink (Segger)"
