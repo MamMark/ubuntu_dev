@@ -37,6 +37,7 @@ echo "*** Installing msp432 emupack"
 chmod +x ti_emupack
 ./ti_emupack --mode unattended --prefix /opt/ti-emu
 
+export DEBIAN_FRONTEND=noninteractive
 
 echo "***"
 apt-get update
