@@ -42,10 +42,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # config.ssh.insert_key = false
 
-  # install msp430 tools
-  config.vm.provision "file", source: "../common/flasher.tgz", destination: "./flasher.tgz"
-  config.vm.provision :shell, path: "../common/mspgcc_ti_tools_install.sh"
-  config.vm.provision :shell, path: "../common/mspgcc46_tools_install.sh"
   # install msp432 tools
   config.vm.provision :shell, path: "../common/arm_tools_install.sh"
   config.vm.provision :file,  source: "../common/61-jtag.rules", destination: "installs/61-jtag.rules"
