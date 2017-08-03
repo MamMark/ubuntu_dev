@@ -16,7 +16,7 @@ customization needs.
 ## The following directories build machines
 
 #### basic/
-For building Linux from bento/ubuntu-16.04 64bit box image to include libraries needed 
+For building Linux from bento/ubuntu-16.04 64bit box image to include libraries needed
 for project (note: ubuntu/xenial64 and cloud-images.ubuntu.com/xenial images were not functional
 as of Dec 1st, 2016)
 
@@ -88,7 +88,7 @@ And then add something like this:
 ## Managing Vagrant Boxes
 Provides instructions on how to build and publish boxes for use by others.
 
-### Instructions to make the Vagrant boxes 
+### Instructions to make the Vagrant boxes
 The following instructions will create the first three boxes defined for
 development purposes and made available on tinyprod.net for general user
 access. These boxes can be used by the tinyos_dev Vagrantfile or other
@@ -110,7 +110,7 @@ export INAME=arm_msp
 export ILIST='Vagrantfile'
 ```
 ### General boxing rules using variables for specific box definition
-The following rules are used to create the three boxes defined above 
+The following rules are used to create the three boxes defined above
 (one at a time).
 #### Package new box and add it to local repo. Also, save copy of box in dropbox to share.
 ```
