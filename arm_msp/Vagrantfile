@@ -62,6 +62,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ['0x2047', '0x0010', 'msp-fet430uif (v3)'],
     ['0x2047', '0x0014', 'msp-fet'],
     ['0x2047', '0x0204', 'msp-fet fw update'],
+    ['0x2047', '0x030b', 'msp-bsl-usb-tool'],
+    ['0x04d8', '0x00de', 'mcp2210-usb-to-spi-master'],
   ]
 
   config.vm.define $my_name do |config|
