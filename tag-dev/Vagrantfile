@@ -1,7 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-$box_name = "arm-dev-tinyos"
 
 $set_date = <<SCRIPT
   export area=America
@@ -12,6 +11,7 @@ $set_date = <<SCRIPT
   cp -f /tmp/timezone /etc/timezone
   cp -f $path /etc/localtime
 SCRIPT
+$box_name = "tag-dev"
 
 $modify_bashrc = <<SCRIPT
 cd ~
