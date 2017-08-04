@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "*** DEPRECATED DEPRECATED DEPRECATED ***"
+
 echo "***"
 echo "*** Installing mspgcc-4.6"
 wget -qO - http://tinyprod.net/repos/debian/tinyprod.key | apt-key add -

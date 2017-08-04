@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "*** DEPRECATED DEPRECATED DEPRECATED ***"
+
 HOME_EXTRA=
 
 #
