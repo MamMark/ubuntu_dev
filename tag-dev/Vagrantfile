@@ -3,8 +3,6 @@
 
 $box_name = "tag-dev"
 
-tz = Time.now.getlocal.zone
-
 $modify_bashrc = <<SCRIPT
 cd ~
 if [ ! -e ~/.bashrc_env ] ; then
@@ -27,6 +25,10 @@ fi
 EOF
 fi
 . ~/.bashrc_env
+$set_timezone = <<SCRIPT
+/bin/rm -f /etc/localtime
+echo America/Los_Angeles > /etc/timezone
+dpkg-reconfigure --frontend noninteractive tzdata
 SCRIPT
 
 $setup_tag_dev = <<SCRIPT
@@ -61,8 +63,8 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb, override|
     vb.name = $box_name
-    override.vm.provision :shell, :inline => "echo \"#{tz}\" > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata"
     override.vm.provision :shell, privileged: false, inline: $modify_bashrc
+    override.vm.provision :shell, inline: $set_timezone
     override.vm.provision :shell, privileged: false, inline: $setup_tag_dev
   end
 end
