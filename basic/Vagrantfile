@@ -17,7 +17,7 @@ apt-get dist-upgrade -qy \
 	-o Dpkg::Options::="--force-confdef" \
 	-o Dpkg::Options::="--force-confold"
 
-MYPKGS="build-essential gitk python-dev python-serial python3-serial default-jdk libusb-dev libreadline-dev linux-headers-generic linux-image-extra-virtual linux-firmware emacs emacs24-el git-el tree unzip stow automake autoconf libtool libc6-dev ntp  autotools-dev"
+MYPKGS="build-essential gitk python-dev python-serial python3-serial default-jdk libusb-dev libreadline-dev linux-headers-generic linux-image-extra-virtual linux-firmware emacs emacs24-el git-el tree unzip stow automake autoconf libtool libc6-dev ntp autotools-dev xauth x11-xserver-utils"
 echo "*** INSTALLING " + $MYPKGS
 apt-get install -qy -V $MYPKGS
 
