@@ -2,25 +2,29 @@
 
 Three primary boxes are built for development purposes:
 1. Basic
-2. msp430
-3. arm_msp
+2. arm_msp
+3. tag_dev
+
+x. msp430 (used to get built, now deprecated)
 
 These boxes represent three stages of operating system libraries and development
 tools integration. Basic includes the base operating system and much of the
 additional linux packages added. The TI tool chains are installed for the two
-processors supported (msp320 and arm_msp).
+processors supported (arm_msp (msp432) and msp430 (deprecated)).
 
-The tinyos_dev box is built by the user for their specific development
+We only currently install tools for the ARM processors.
+
+The tag_dev box is built by the user for their specific development
 customization needs.
 
 ## The following directories build machines
 
 #### basic/
-For building Linux from bento/ubuntu-16.04 64bit box image to include libraries needed
+For building Linux from bento/ubuntu-16.04 64 bit box image to include libraries needed
 for project (note: ubuntu/xenial64 and cloud-images.ubuntu.com/xenial images were not functional
 as of Dec 1st, 2016)
 
-#### msp430/
+#### msp430/    DEPRECATED
 For building TI-MSP430 software, including Vagrantfiles and other scripts
 
 #### arm_msp/
@@ -32,11 +36,23 @@ Common scripts and other shared files
 #### mammark/
 For test mammal tagging (marking) application
 
-#### tinyos_dev
+#### tag_dev
 Template for user customized development environment. User might change
 which virtual mount points to include, for instance.
 
 ## General Notes
+
+dkms
+    apt-get install dkms
+VirtualBox
+VirtualBox ExtPack
+VirtualBox Guest Additions
+    https://www.virtualbox.org/wiki/Linux_Downloads
+vagrant         https://releases.hashicorp.com/vagrant/
+vagrant-vbguest
+   vagrant plugin install vagrant-vbguest
+
+### Install current version of VirtualBox
 
 ### Add these Vagrant plugins
 ```
@@ -97,25 +113,23 @@ Vagrantfiles as their starting point.
 #### variables for boxing ubuntu_dev-basic
 ```
 export INAME=basic
-export ILIST='Vagrantfile,../README.md'
 ```
 #### variables for ubuntu_dev-msp430
 ```
 export INAME=msp430
-export ILIST='Vagrantfile'
 ```
 #### Variables for ubuntu_dev-arm_msp
 ```
 export INAME=arm_msp
-export ILIST='Vagrantfile'
 ```
 ### General boxing rules using variables for specific box definition
 The following rules are used to create the three boxes defined above
 (one at a time).
 #### Package new box and add it to local repo. Also, save copy of box in dropbox to share.
 ```
+if [ ! -e ~/Boxes ] ; then mkdir ~/Boxes ; fi
 export BASE_NAME=ubuntu_dev-$INAME
-export TARGET=~/Downloads
+export TARGET=~/Boxes
 export IMAGE_NAME=$BASE_NAME.`date +%Y-%m-%d`
 export OBOX=$TARGET/$IMAGE_NAME.box
 export OSUMS=$TARGET/$IMAGE_NAME.sha256
@@ -123,7 +137,7 @@ export OSUMS=$TARGET/$IMAGE_NAME.sha256
 rm -f {$OBOX,$OSUMS}
 vagrant destroy -f
 vagrant up --provider=virtualbox
-vagrant package --output $OBOX --include $ILIST
+vagrant package --output $OBOX
 export CHECKSUM=`shasum -a 256 $OBOX`
 echo $CHECKSUM >> $OSUMS
 echo $CHECKSUM
@@ -184,7 +198,7 @@ automatically.
 ### Replace this line to use a local box file
 Sometimes you might want to refer to a box stored locally, for example to test a new box.
 ```
-"url": "file:///Users/danome/Downloads/ubuntu_dev-basic.2017-01-04.box"
+"url": "file:///Users/danome/Boxes/ubuntu_dev-basic.2017-01-04.box"
 ```
 Then build and run basic. This will check for correct VirtualBox Guest Additions and
 install if out of sync.
