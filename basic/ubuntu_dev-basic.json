@@ -1,17 +1,17 @@
 {
 	"name": "ubuntu_dev/basic",
-	"description": "This box contains Ubuntu 16.04 64-bit Vagrant server (headless) with development packages installed. older versions were based on Ubuntu 14.04 32-bit server.",
+	"description": "Ubuntu 16.04 64-bit Vagrant server (headless)/dev packages",
 	"short_description": "Xenial64 Development Server",
 	"versions": [{
-		"version": "0.5.0",
+		"version": "0.6.0",
 		"status": "active",
 		"providers": [{
 				"name": "virtualbox",
-				"url": "file:///Users/danome/Downloads/ubuntu_dev-basic.2017-01-04.box",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-basic.2017-08-05.box",
 				"description_html": "<p>Ubuntu 16.04 (64bit) Development Environment</p>",
 				"description_markdown": "Ubuntu 16.04 (64bit) Development Environment",
 				"checksum_type": "sha256",
-				"checksum": ""
+				"checksum": "45180e7ae0b1022cd472c7ccaf7f902463b756ffd62ede846deac4ded7f75d06"
 		}]
 	}]
 }

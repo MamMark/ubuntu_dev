@@ -1,17 +1,17 @@
 {
 	"name": "ubuntu_dev/arm_msp",
 	"description": "Ubuntu based TI ARM/MSP432 toolchain",
-	"short_description": "Ubuntu Trusty32 TI MSP432/ARM, MSP430 Development box",
+	"short_description": "Ubuntu Xenial64 TI MSP432/ARM Development box",
 	"versions": [{
-		"version": "0.5.0",
+		"version": "0.6.0",
 		"status": "active",
 		"providers": [{
 				"name": "virtualbox",
 				"description_html": "<p>TI ARM/MSP Development Environment</p>",
 				"description_markdown": "TI ARM/MSP Development Environment",
-				"url": "file:///Users/danome/Downloads/ubuntu_dev-arm_msp.2017-01-06.box",
+				"url": "http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.2017-08-05.box",
 				"checksum_type": "sha256",
-				"checksum": "6808ab4c9594769ea5e138bb3f2d42956fedeb7b5d3225928a8c8c16baa34a55"
+				"checksum": "8a0509dcb39866054bcfc8cacfc35dd720a67f37315e3f77f2d9c8904d8e13d2"
 		}]
 	}]
 }
