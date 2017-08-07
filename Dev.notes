@@ -1,4 +1,18 @@
 
+20170805: 16.04 Ubuntu update
+
+simplelink-sdk_1_40_01_00  (3100 msp432 headers)
+JLink (Segger), V6.16j (6.16.10)
+ti_emupack_setup_7.0.48.0_linux_x86_64.bin:
+
+msp432-gcc-1.2.0.1-linux-x64-support-package-installer.run:
+  3001 headers
+msp432-gcc-support-files.zip:
+  3001 headers
+
+(see ~/mm/w/new for more details)
+
+
 20070310: Various Updates
 
 Installed
