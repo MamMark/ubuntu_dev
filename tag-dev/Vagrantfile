@@ -9,7 +9,7 @@ echo America/Los_Angeles > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 SCRIPT
 
-$setup_tag_dev = <<SCRIPT
+$setup_tag_dots = <<SCRIPT
 export TAG_ROOT=/home/vagrant/home/tag
 
 FILES=".bash_aliases .bash_functions .bash_login .bash_logout .bashrc .emacs.d \
@@ -64,14 +64,15 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_x11 = true
   config.ssh.forward_agent = true
   config.ssh.insert_key = true
+  config.vm.provision :shell, inline: $set_timezone
+  config.vm.provision :shell, privileged: false, inline: $setup_tag_dots
+  config.vm.provision :shell, privileged: false, path: "../common/emacs_init.el"
 
   config.vm.synced_folder "~/", "/home/vagrant/home"
 
   config.vm.network "public_network", bridge: ""
 
-  config.vm.provider "virtualbox" do |vb, override|
+  config.vm.provider "virtualbox" do |vb|
     vb.name = $box_name
-    override.vm.provision :shell, inline: $set_timezone
-    override.vm.provision :shell, privileged: false, inline: $setup_tag_dev
   end
 end

@@ -48,6 +48,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, inline: $install_rules
   config.vm.provision :shell, inline: $post_install_script
 
+  config.vm.synced_folder "~/", "/home/vagrant/home"
+
   # prepare for packaging the box
   config.vm.provision :shell, path: "../common/compact.sh"
 
@@ -65,10 +67,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define $my_name do |config|
     config.vm.hostname = $my_name
-    config.vm.provider "virtualbox" do |vb, override|
+    config.vm.provider "virtualbox" do |vb|
       vb.name = $my_name
-      override.vm.synced_folder "~/", "/home/vagrant/home"
-
       vb.customize ["modifyvm", :id, "--memory", 2048]
       vb.customize ['modifyvm', :id, '--usb', 'on']
       usb_devs.each do |dev|
