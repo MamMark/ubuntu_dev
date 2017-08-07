@@ -33,11 +33,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu_dev/basic"
-  config.vm.box_version='0.4.1'
-  config.vm.box_url = 'file:///Users/danome/Data/ubuntu_dev/basic/ubuntu_dev-basic.json'
-  #	config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
-  config.vm.box_download_checksum = 'ba8c3bc157bb777601a66aac8683ee8ca782de2749e146d1633561426583498e'
-  config.vm.box_download_checksum_type = 'sha256'
+  config.vm.box_version='0.6.0'
+  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-basic.json'
   config.vm.box_check_update = true
 
   # config.ssh.insert_key = false

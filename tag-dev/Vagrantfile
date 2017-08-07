@@ -55,8 +55,7 @@ SCRIPT
 
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu_dev/arm_msp"
-  config.vm.box_url = 'file:///home/cire/mm/w/ubuntu_dev/arm_msp/ubuntu_dev-arm_msp.json'
-#  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.json'
+  config.vm.box_url = 'http://www.tinyprod.net/boxes/ubuntu_dev-arm_msp.json'
   config.vm.box_check_update = true
 
   config.vm.define $box_name
