@@ -1,6 +1,6 @@
 
 These are notes about the msp432 toolchain.
-last update: 8/5/2017
+last update: 9/30/2017
 
 The TI msp432 is a low power ARM Cortex-M4F with msp430 peripherals integrated
 on chip.  Little endian.
@@ -59,9 +59,7 @@ Installation Candidates::
                   gnuarmeclipse-openocd-debian32-0.9.0-201505190955.tgz
                   gnuarmeclipse-openocd-debian32-0.10.0-201601101000-dev.tgz
 
-  seeger j-link:    https://www.segger.com/downloads/jlink/jlink_6.0.7_i386.deb
-        systemview: https://www.segger.com/downloads/jlink/systemview_2.40_i386.deb
-        ozone:      https://www.segger.com/downloads/jlink/ozone_2.18.3_i386.deb
+  seeger j-link:  https://www.segger.com->downloads->jlink/JLink_Linux_V616j_x86_64.deb
 
 
 *** Toolchain ***
