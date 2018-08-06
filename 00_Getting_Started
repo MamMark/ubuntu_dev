@@ -1,10 +1,12 @@
 
-Mac OS X Install
+Mac OS X Host/Linux Vagrant Guest Install
 
-WARNING: Mac OS X by default is a case-insensitive file system which messes
-things up for the Linux based host shared filesystems.
+0) Make sure you have a case sensitive file system, call it Repos.
+   This mounts on the Mac OS X side as /Volumes/Repos.
 
-This needs to get sorted out.
+   WARNING: This most likely needs to be a seperate file system from your root
+   because case sensitivity on the Mac can mess up stupid mac programs that don't
+   handle case sensitive filenames properly.
 
 1) Install required software
 
@@ -51,6 +53,10 @@ This needs to get sorted out.
    git clone -o mm https://github.com/MamMark/ubuntu-dev
 
 4) bring up the test VM, tag-dev.
+
+   NOTE: uncomment the following line in tag-dev/Vagrantfile
+   #  config.vm.synced_folder "/Volumes/Repos", "/home/vagrant/repos"
+
    cd ~/w/ubuntu_dev/tag-dev
    vagrant up
 
@@ -64,7 +70,10 @@ This needs to get sorted out.
    tag/prod         tp-freeforall fork of the tiny_prod repository
    tag/dot-files    MamMark standard dot files
 
-6) Install dot-files from tag/dot-files
+6) If desired, Install dot-files from tag/dot-files onto host side.
+
+   Only do this if you want the same dot files on the host and guest.
+
    cd ~/tag/dot-files
    cp -Rv .[bem]* .gdbinit .gitconfig ~/
 
