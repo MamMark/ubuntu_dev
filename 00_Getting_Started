@@ -1,2 +1,85 @@
 
-place holder
+Mac OS X Install
+
+WARNING: Mac OS X by default is a case-insensitive file system which messes
+things up for the Linux based host shared filesystems.
+
+This needs to get sorted out.
+
+1) Install required software
+
+   o Vagrant:
+     https://releases.hashicorp.com/vagrant/2.1.2/vagrant_2.1.2_x86_64.dmg
+
+   o Virtualbox:
+     https://download.virtualbox.org/virtualbox/5.2.16/VirtualBox-5.2.16-123759-OSX.dmg
+
+   o Virtualbox Extension Pack:
+     https://download.virtualbox.org/virtualbox/5.2.16/Oracle_VM_VirtualBox_Extension_Pack-5.2.16.vbox-extpack
+
+   o Emacs 25 for MacOSX:
+     https://emacsformacosx.com/emacs-builds/Emacs-25.1-1-universal.dmg
+
+     yes we want to force version 25.
+
+   o Install Xquartz.
+     https://www.xquartz.org/  https://dl.bintray.com/xquartz/downloads/XQuartz-2.7.11.dmg
+
+   o Install brew.  See: https://brew.sh/
+     /usr/bin/ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”
+
+   o git for mac os x:
+     from a terminal window type “git —version”.  If git is available it
+     will display git’s version number.  Otherwise a pop up window will
+     show up.  Chose “Install” to install “command line developer tools”.
+     If desired you can install the full Xcode tools (>6G).
+
+   o Install bash4.   See https://gist.github.com/samnang/1759336
+     brew install bash
+
+2) Change your shell:
+   sudo bash -c “echo /user/local/bin/bash >> /private/etc/shells”
+   chsh -s /usr/local/bin/bash
+
+   make sure your path includes /usr/local/bin
+   logout and log back in.
+
+3) clone ubuntu_dev to obtain the tag-dev Vagrantfile
+   cd ~
+   mkdir w
+   cd w
+   git clone -o mm https://github.com/MamMark/ubuntu-dev
+
+4) bring up the test VM, tag-dev.
+   cd ~/w/ubuntu_dev/tag-dev
+   vagrant up
+
+5) The creation of the tag-dev VM above will create initial versions of the
+   local repositories iff the directory /home/<user>/tag (on the host,
+   upstairs) doesn’t exists.
+
+   It will create the following:
+
+   tag/mm           MamMark repository
+   tag/prod         tp-freeforall fork of the tiny_prod repository
+   tag/dot-files    MamMark standard dot files
+
+6) Install dot-files from tag/dot-files
+   cd ~/tag/dot-files
+   cp -Rv .[bem]* .gdbinit .gitconfig ~/
+
+   the above will install dot files into home for your local user on the
+   host.  (upstairs)
+
+   comment out the EXPECTED_USER check in .bashrc
+   edit [user]/{name,email} in .gitconfig.  Make them your own.
+
+   log out and back in.
+
+7) Launch local Emacs.  (will use just installed emacs init files)
+   o install magit into Emacs25.
+     M-x package-refresh-contents RET
+     M-x package-install RET magit RET
+
+8) Log into the VM
+    vagrant ssh
