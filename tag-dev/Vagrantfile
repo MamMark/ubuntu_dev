@@ -35,11 +35,11 @@ if [ ! -e $TAG_ROOT ] ; then
     mkdir $TAG_ROOT
     cd $TAG_ROOT
     echo cloning dot-files
-    git clone -q https://github.com/MamMark/dot-files.git
+    git clone -o mm  -q https://github.com/MamMark/dot-files.git
     echo cloning prod
-    git clone -q https://github.com/tp-freeforall/prod
+    git clone -o ffa -q https://github.com/tp-freeforall/prod
     echo cloning MamMark
-    git clone -q https://github.com/MamMark/mm.git
+    git clone -o mm  -q https://github.com/MamMark/mm.git
     cd ~
 
     # generate custom places for MM_ROOT and TINYOS_ROOT
