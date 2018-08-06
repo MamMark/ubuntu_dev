@@ -9,6 +9,22 @@ echo America/Los_Angeles > /etc/timezone
 dpkg-reconfigure --frontend noninteractive tzdata
 SCRIPT
 
+$emacs25_script = <<EMACS25_SCRIPT
+export DEBIAN_FRONTEND=noninteractive
+
+echo "enabling kelleyk/emacs repository"
+add-apt-repository -y ppa:kelleyk/emacs
+apt-get update
+
+echo "installing emacs25"
+apt-get -y install emacs25
+for alt in ctags25 ebrowse25 emacs25 emacsclient25 etags25
+do
+    base=$(echo $alt | perl -pe 's/25$//')
+    update-alternatives --set $base /usr/bin/$alt
+done
+EMACS25_SCRIPT
+
 $setup_tag_dots = <<SCRIPT
 export TAG_ROOT=/home/vagrant/home/tag
 
@@ -65,8 +81,9 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
   config.ssh.insert_key = true
   config.vm.provision :shell, inline: $set_timezone
-  config.vm.provision :shell, privileged: false, inline: $setup_tag_dots
+  config.vm.provision :shell, inline: $emacs25_script
   config.vm.provision :shell, privileged: false, path: "../common/emacs_init.el"
+  config.vm.provision :shell, privileged: false, inline: $setup_tag_dots
 
   config.vm.synced_folder "~/", "/home/vagrant/home"
 
