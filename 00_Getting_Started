@@ -13,11 +13,9 @@ Mac OS X Host/Linux Vagrant Guest Install
    o Vagrant:
      https://releases.hashicorp.com/vagrant/2.1.2/vagrant_2.1.2_x86_64.dmg
 
-   o Virtualbox:
-     https://download.virtualbox.org/virtualbox/5.2.16/VirtualBox-5.2.16-123759-OSX.dmg
-
-   o Virtualbox Extension Pack:
-     https://download.virtualbox.org/virtualbox/5.2.16/Oracle_VM_VirtualBox_Extension_Pack-5.2.16.vbox-extpack
+   o Virtualbox:  (currently frozen at 5.1.26)
+     https://download.virtualbox.org/virtualbox/5.1.26/VirtualBox-5.1.26-117224-OSX.dmg
+     https://download.virtualbox.org/virtualbox/5.1.26/Oracle_VM_VirtualBox_Extension_Pack-5.1.26-117224.vbox-extpack
 
    o Emacs 25 for MacOSX:
      https://emacsformacosx.com/emacs-builds/Emacs-25.1-1-universal.dmg
@@ -92,3 +90,8 @@ Mac OS X Host/Linux Vagrant Guest Install
 
 8) Log into the VM
     vagrant ssh
+
+
+Other Notes:
+
+o install mm/tools/utils/{tagcore, binfin, tagdump, etc}
