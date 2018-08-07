@@ -52,6 +52,9 @@ if [ ! -e $TAG_ROOT/ ] ; then
     echo cloning MamMark
     git clone -o mm  -q https://github.com/MamMark/mm.git
     cd ~
+fi
+
+if [ ! -e ~/.environment_bash.local ] ; then
 
     # generate custom places for MM_ROOT and TINYOS_ROOT
     cat > ~/.environment_bash.local <<EOF
