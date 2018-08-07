@@ -101,7 +101,9 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, privileged: false, inline: $setup_tag_dots
 
   config.vm.synced_folder "~/", "/home/vagrant/home"
-#  config.vm.synced_folder "/Volumes/Repos", "/home/vagrant/repos"
+  if Gem::Platform.local.os == 'darwin' then
+    config.vm.synced_folder "/Volumes/Repos", "/home/vagrant/repos"
+  end
 
   config.vm.network "public_network", bridge: ""
 
